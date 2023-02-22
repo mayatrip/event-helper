@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import logo from './logo.svg';
 import './App.css';
+import EventList from "./components/EventList";
 
 function App() {
-  let [allEvent, setallEvent] = useState([]);
+  let [allEvent, setAllEvent] = useState([]);
 
   // useEffect() will call getDucks() when App is mounted on the DOM
   useEffect(() => {
@@ -35,18 +36,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          I think it's working
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        
+        <EventList />
+    
       </header>
     </div>
   );
