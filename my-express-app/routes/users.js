@@ -10,16 +10,16 @@ router.get('/', function(req, res, next) {
 /* POST a new acitvity */
 router.post("/", async (req, res) => {
   //get the texts from the body
-  let {newActivity} = req.body;
+  let {id, date, title, deadline} = req.body;
   let sql = `
-  INSERT INTO items 
-  VALUES ('${newActivity})
+  INSERT INTO activities (id, date, title, deadline)
+  VALUES ('${id}', '${date}', '${title}', '${deadline}')
   `;
 
   try {
     //add new activity
     await db(sql);
-    let results = await db("SELECT * FROM items");
+    let results = await db('SELECT * FROM activities');
     res.send(results.data);
   } catch (err) {
     res.status(500).send({error: err.message});
