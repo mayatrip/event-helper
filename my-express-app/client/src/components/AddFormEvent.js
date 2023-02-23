@@ -12,10 +12,19 @@ const INIT_FORM = {
 }
 
 function AddFormEvent() {
+    const [formData, setFormData] = useState(INIT_FORM)
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        setFormData(INIT_FORM);
+        console.log("something has been submitted")
+
+
+    }
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <h1>Main info</h1>
                 <label>
                     Date
