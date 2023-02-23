@@ -20,8 +20,14 @@ router.post("/", async function (req, res, next) {
   //get the texts from the body
   let {date, title, deadline, activityName, description, price, link, location} = req.body;
   let sql = `
-  INSERT INTO event (date, title, deadline, activityName, description, price, link, location)
-  VALUES ('${date}', '${title}', '${deadline}', '${activityName}', '${description}', '${price}', '${link}', '${location}')
+  INSERT INTO keyInfo(date, title, deadline)
+  VALUES ('${date}', '${title}', '${deadline}')
+
+  INSERT INTO activities (activityName, description, price, link, location)
+  VALUES ('${activityName}', '${description}', '${price}', '${link}', '${location}')
+  
+  INSERT INTO activities (activityName, description, price, link, location)
+  VALUES ('${activityName}', '${description}', '${price}', '${link}', '${location}')
   `;
 
   try {
