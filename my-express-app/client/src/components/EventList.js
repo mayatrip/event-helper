@@ -1,11 +1,14 @@
-import React from "react";
+import React from 'react';
 
-function EventList (){
+function EventList(props) {
     return (
-        <div>
-            Event list here
-        </div>
-
+            {props.event.map(e => (
+                    <div key={e.id}>
+                        {e.date}
+                        {}
+                    </div>
+            ))
+            }
     );
 }
 
