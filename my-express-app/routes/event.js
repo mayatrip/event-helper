@@ -6,7 +6,7 @@ const db = require("../model/helper");
 router.get('/', async function(req, res, next) {
 
   try {
-    let result = await db('SELECT * FROM event');
+    let result = await db('SELECT date, title, deadline, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON activities.keyInfo_id = keyInfo.keyInfo_id ');
     let event = result.data;
     res.send(event);
   }catch (err) {
@@ -34,7 +34,7 @@ router.post("/", async function (req, res, next) {
     await db(insertKeyInfo);
     await db(insertActivities);
 
-    let result = await db('SELECT * FROM activities INNER JOIN keyInfo ON activities.keyInfo_id = keyInfo.keyInfo_id ');
+    let result = await db('SELECT date, title, deadline, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON activities.keyInfo_id = keyInfo.keyInfo_id ');
     let event = result.data;
 
     res.status(200).send(event);
