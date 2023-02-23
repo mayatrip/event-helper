@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 
+
 const INIT_STATE = {
     "main": {
         date: '',
         title: '',
         deadline: '',
 
-        "activity": {
+        "activityOne": {
             activityName: '',
             description: '',
             price: '',
             link: '',
             location: ''
-        }
+        },
+        "activityTwo": {
+            activityName: '',
+            description: '',
+            price: '',
+            link: '',
+            location: ''
+        }  
     }
 }
+
+
 
 function AddFormEvent(props) {
     const [formData, setFormData] = useState(INIT_STATE)
@@ -43,7 +53,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "date"
-                    value={formData.date}
+                    value={formData.main.date}
                     onChange={handleChange}
                     />
                 </label>
@@ -53,7 +63,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "title"
-                    value={formData.title}
+                    value={formData.main.title}
                     onChange={handleChange}
                     />
                 </label>
@@ -63,12 +73,15 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "deadline"
-                    value={formData.deadline}
+                    value={formData.main.deadline}
                     onChange={handleChange}
                     />
                 </label>
 
                 <h1>Activity info</h1>
+                <h2> FIRST</h2>
+                {/* for loop */}
+
                 <label>
                     Name
                     <input 
@@ -117,7 +130,58 @@ function AddFormEvent(props) {
                     value={formData.location}
                     onChange={handleChange}
                     />
+                </label>                                                            
+
+                <h2> SECOND</h2>
+                <label>
+                    Name
+                    <input 
+                    type= "text"
+                    name= "activityName"
+                    value={formData.activityName}
+                    onChange={handleChange}
+                    />
                 </label>
+
+                <label>
+                    Description
+                    <input 
+                    type= "text"
+                    name= "description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Price
+                    <input 
+                    type= "number"
+                    name= "price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Link
+                    <input 
+                    type= "link"
+                    name= "link"
+                    value={formData.link}
+                    onChange={handleChange}
+                    />
+                </label>
+
+                <label>
+                    Location
+                    <input 
+                    type= "text"
+                    name= "location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    />
+                </label>  
 
                 <div>
                     <button type="submit">Submit</button>

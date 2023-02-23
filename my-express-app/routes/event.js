@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* POST a new acitvity */
-router.post("/", async (req, res, next) => {
+router.post("/", async function (req, res, next) {
   //get the texts from the body
   let {date, title, deadline, activityName, description, price, link, location} = req.body;
   let sql = `
