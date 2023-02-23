@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const INIT_FORM = {
+const INIT_STATE = {
     date: '',
     title: '',
     deadline: '',
@@ -8,18 +8,25 @@ const INIT_FORM = {
     description: '',
     price: '',
     link: '',
-    location: '',
+    location: ''
 }
 
-function AddFormEvent() {
-    const [formData, setFormData] = useState(INIT_FORM)
+function AddFormEvent(props) {
+    const [formData, setFormData] = useState(INIT_STATE)
 
     function handleSubmit(event) {
         event.preventDefault();
-        setFormData(INIT_FORM);
-        console.log("something has been submitted")
+        props.addEventFormCb(formData);
+        setFormData(INIT_STATE);
+        // console.log("something has been submitted")
+    }
 
-
+    function handleChange(event) {
+        let { name, value } = event.target;
+        setFormData (data => ({
+            ...data,
+            [name]: value,
+        }));
     }
 
     return (
@@ -31,6 +38,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "date"
+                    value={formData.date}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -39,6 +48,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "title"
+                    value={formData.title}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -47,6 +58,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "deadline"
+                    value={formData.deadline}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -56,6 +69,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "name"
+                    value={formData.name}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -64,6 +79,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "description"
+                    value={formData.description}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -72,6 +89,8 @@ function AddFormEvent() {
                     <input 
                     type= "number"
                     name= "price"
+                    value={formData.price}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -80,6 +99,8 @@ function AddFormEvent() {
                     <input 
                     type= "link"
                     name= "link"
+                    value={formData.link}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -88,6 +109,8 @@ function AddFormEvent() {
                     <input 
                     type= "text"
                     name= "location"
+                    value={formData.location}
+                    onChange={handleChange}
                     />
                 </label>
 
