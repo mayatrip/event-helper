@@ -18,29 +18,23 @@ router.get('/', async function(req, res, next) {
 /* POST a new acitvity */
 router.post("/", async function (req, res, next) {
   //get the texts from the body
-  //I think I need to do something like select and join to have everything in the req.body
   let {date, title, deadline, activityName, description, price, link, location} = req.body;
 
   let insertKeyInfo = `
   INSERT INTO keyInfo(date, title, deadline)
   VALUES ('${date}', '${title}', '${deadline}')`;
 
-  let insertActivityOne = `
+  let insertActivities = `
   INSERT INTO activities (activityName, description, price, link, location)
   VALUES ('${activityName}', '${description}', '${price}', '${link}', '${location}')`;
   
-  let insertActivityTwo = `
-  INSERT INTO activities (activityName, description, price, link, location)
-  VALUES ('${activityName}', '${description}', '${price}', '${link}', '${location}')
-  `;
 
   try {
     //add new activity
     await db(insertKeyInfo);
-    await db(insertActivityOne);
-    await db(insertActivityTwo);
+    await db(insertActivities);
 
-    let result = await db('SELECT * FROM event');
+    let result = await db('SELECT * FROM activities INNER JOIN keyInfo ON activities.keyInfo_id = keyInfo.keyInfo_id ');
     let event = result.data;
 
     res.status(200).send(event);
