@@ -16,7 +16,7 @@ function AddFormEvent(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        props.addEventFormCb(formData);
+        props.addEventFormCb2(formData);
         setFormData(INIT_STATE);
         // console.log("something has been submitted")
     }
