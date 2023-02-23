@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from './logo.svg';
 import './App.css';
-import EventList from "./components/EventList";
+// import EventList from "./components/EventList";
 
 function App() {
   let [allEvent, setAllEvent] = useState([]);
@@ -37,7 +37,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-        <EventList />
+        {/* <EventList event={event}/> */}
+        checking if it's working
     
       </header>
     </div>
