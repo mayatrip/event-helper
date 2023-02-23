@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import EventList from "./components/EventList";
-import AdminInterface from "./components/AdminInterface";
+import AddFormEvent from "./components/AddFormEvent";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
@@ -61,9 +61,15 @@ function App() {
         TEST TEST
       </header>
 
-      <AdminInterface addEventFormCb1={allEvents} />        
+      <div>
+      
+      <AddFormEvent addEventFormCb={addEventForm} />
       <EventList allEventsCb={allEvents}/>
         checking if it's working
+
+      </div>
+
+
     
 
 
