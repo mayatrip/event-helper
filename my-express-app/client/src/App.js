@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import EventList from "./components/EventList";
 import AddFormEvent from "./components/AddFormEvent";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
@@ -64,7 +64,7 @@ function App() {
       <div>
       
       <AddFormEvent addEventFormCb={addEventForm} />
-      <EventList allEventsCb={allEvents}/>
+      <Dashboard allEventsCb={allEvents}/>
         checking if it's working
 
       </div>
