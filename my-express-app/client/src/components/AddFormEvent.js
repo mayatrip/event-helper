@@ -14,7 +14,12 @@ const INIT_FORM = {
 function AddFormEvent() {
     let [formData, setFormData] = useState[INIT_FORM];
 
-    function handleChange() {
+    function handleChange(event) {
+        let {name, value} = event.target;
+        setFormData = (data => ({
+            ...data,
+            [name]: value,
+        }));
         
     }
 
