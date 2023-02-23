@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import './App.css';
 import AddFormEvent from "./components/AddFormEvent";
 import Dashboard from "./components/Dashboard";
@@ -62,9 +63,12 @@ function App() {
       </header>
 
       <div>
+        {/* for this to work, remember to import { Routes, Route} */}
+        <Routes>
+          <Route path="/" element={<AddFormEvent addEventFormCb={addEventForm}  />} />
+          <Route path="/dashboard" element={<Dashboard allEventsCb={allEvents}/>} />
+        </Routes>
       
-      <AddFormEvent addEventFormCb={addEventForm} />
-      <Dashboard allEventsCb={allEvents}/>
         checking if it's working
 
       </div>
