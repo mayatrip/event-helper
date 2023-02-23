@@ -6,7 +6,7 @@ const INIT_STATE = {
         title: '',
         deadline: '',
 
-        "subActivity": {
+        "activity": {
             activityName: '',
             description: '',
             price: '',
