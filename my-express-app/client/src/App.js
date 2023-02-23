@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import logo from './logo.svg';
 import './App.css';
 import AddFormEvent from "./components/AddFormEvent";
 // import EventList from "./components/EventList";

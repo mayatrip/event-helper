@@ -11,12 +11,12 @@ const INIT_FORM = {
     location: '',
 }
 
-function AddFormEvent() {
+function AddFormEvent(props) {
     const [formData, setFormData] = useState[INIT_FORM];
 
     function handleSubmit(event) {
         event.preventDefault();
-        // props.AddFormCb(formData);
+        props.AddFormCb(formData);
         setFormData(INIT_FORM);
     }
 
