@@ -1,8 +1,3 @@
---Create database
-DROP DATABASE IF EXISTS event;
-CREATE DATABASE event;
-USE event;
-
 
 -- (Re)create the table
 
