@@ -27,9 +27,9 @@ function App() {
     }
 
   //Post a new event
-  async function addEvent() {
+  // async function addEvent() {
 
-  }
+  // }
 
   }
 
