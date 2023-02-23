@@ -3,8 +3,16 @@ var router = express.Router();
 const db = require("../model/helper");
 
 /* GET event listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', async function(req, res, next) {
+
+  try {
+    let result = await db('SELECT * FROM event');
+    let event = result.data;
+    res.send(event);
+  }catch (err) {
+    res.status(500).send({error: err.message});
+  }
+
 });
 
 /* POST a new acitvity */

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import AddFormEvent from "./components/AddFormEvent";
-// import EventList from "./components/EventList";
+import EventList from "./components/EventList";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
@@ -30,10 +30,15 @@ function App() {
   //Post a new event
   async function addEventForm(event) {
     //define fetch() options
+
+    //create a copy of my event object
+    //then edit that copy so that the price property has a value that correspond to a number and not a string
+    let newEvent = {...event};
+    newEvent.price = Number(newEvent.price); //reference that element to become the new one
     let options = {
-      methods: 'POST',
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(event)
+      body: JSON.stringify(newEvent)//name of the copy
     };
 
     try {
@@ -59,7 +64,7 @@ function App() {
       </header>
       <AddFormEvent addEventFormCb={addEventForm} />
         
-        {/* <EventList event={event}/> */}
+      <EventList allEventsCb={allEvents}/>
         checking if it's working
     
 
