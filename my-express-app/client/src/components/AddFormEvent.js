@@ -25,7 +25,6 @@ const INIT_STATE = {
 }
 
 
-
 function AddFormEvent(props) {
     const [formData, setFormData] = useState(INIT_STATE)
 
@@ -87,7 +86,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "activityName"
-                    value={formData.activityName}
+                    value={formData.main.activityOne.activityName}
                     onChange={handleChange}
                     />
                 </label>
@@ -97,7 +96,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "description"
-                    value={formData.description}
+                    value={formData.main.activityOne.description}
                     onChange={handleChange}
                     />
                 </label>
@@ -107,7 +106,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "number"
                     name= "price"
-                    value={formData.price}
+                    value={formData.main.activityOne.price}
                     onChange={handleChange}
                     />
                 </label>
@@ -117,7 +116,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "link"
                     name= "link"
-                    value={formData.link}
+                    value={formData.main.activityOne.link}
                     onChange={handleChange}
                     />
                 </label>
@@ -127,7 +126,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "location"
-                    value={formData.location}
+                    value={formData.main.activityOne.location}
                     onChange={handleChange}
                     />
                 </label>                                                            
@@ -138,7 +137,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "activityName"
-                    value={formData.activityName}
+                    value={formData.main.activityTwo.activityName}
                     onChange={handleChange}
                     />
                 </label>
@@ -148,7 +147,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "description"
-                    value={formData.description}
+                    value={formData.main.activityTwo.description}
                     onChange={handleChange}
                     />
                 </label>
@@ -158,7 +157,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "number"
                     name= "price"
-                    value={formData.price}
+                    value={formData.main.activityTwo.price}
                     onChange={handleChange}
                     />
                 </label>
@@ -168,7 +167,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "link"
                     name= "link"
-                    value={formData.link}
+                    value={formData.main.activityTwo.link}
                     onChange={handleChange}
                     />
                 </label>
@@ -178,7 +177,7 @@ function AddFormEvent(props) {
                     <input 
                     type= "text"
                     name= "location"
-                    value={formData.location}
+                    value={formData.main.activityTwo.location}
                     onChange={handleChange}
                     />
                 </label>  
