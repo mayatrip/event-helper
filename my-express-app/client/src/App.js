@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import AddFormEvent from "./components/AddFormEvent";
 import Dashboard from "./components/Dashboard";
@@ -59,8 +59,12 @@ function App() {
   return (
     <div className="App">
       <header>
-        TEST TEST
+        Test Test
       </header>
+
+      <nav>
+        <Link to="/">Home</Link> <Link to="/dashboard">Dashboard</Link>
+      </nav>
 
       <div>
         {/* for this to work, remember to import { Routes, Route} */}

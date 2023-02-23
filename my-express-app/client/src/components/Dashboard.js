@@ -5,17 +5,21 @@ function Dashboard(props) {
         <div>
             { 
             props.allEventsCb.map(e => (
-                <div key={e.id}>
-                {e.date}
-                {e.title} 
-                {e.deadline}
-                {e.activityName}
-                {e.description}
-                {e.price}
-                {e.link}
-                {e.location}
+                <ul key={e.id}>
+                    <div>
+                        <p>{e.date}</p>
+                        <p>{e.title}</p>
+                        <p>{e.deadline}</p>
+                    </div>  
 
-                </div>
+                    <div>
+                        <p>{e.activityName}</p>
+                        <p>{e.description}</p>
+                        <p>{e.price}</p>
+                        <p>{e.link}</p>
+                        <p>{e.location}</p>
+                    </div>
+                </ul>
 
             ))
             }
