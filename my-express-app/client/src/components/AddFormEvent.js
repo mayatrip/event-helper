@@ -20,7 +20,7 @@ const INIT_STATE = {
             price: '',
             link: '',
             location: ''
-        }  
+        },
     }
 }
 
@@ -32,7 +32,7 @@ function AddFormEvent(props) {
         event.preventDefault();
         props.addEventFormCb(formData);
         setFormData(INIT_STATE);
-        // console.log("something has been submitted")
+        console.log("something has been submitted")
     }
 
     function handleChange(event) {
