@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from './logo.svg';
 import './App.css';
+import AddFormEvent from "./components/AddFormEvent";
 // import EventList from "./components/EventList";
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+
+        <AddFormEvent
+        allEvent={allEvent}
+        />
         
         {/* <EventList event={event}/> */}
         checking if it's working
