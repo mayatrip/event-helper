@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 
 const INIT_STATE = {
-    date: '',
-    title: '',
-    deadline: '',
-    activityName: '',
-    description: '',
-    price: '',
-    link: '',
-    location: ''
+    "main": {
+        date: '',
+        title: '',
+        deadline: '',
+
+        "subActivity": {
+            activityName: '',
+            description: '',
+            price: '',
+            link: '',
+            location: ''
+        }
+    }
 }
 
 function AddFormEvent(props) {

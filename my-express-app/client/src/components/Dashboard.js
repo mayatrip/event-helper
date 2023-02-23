@@ -23,9 +23,7 @@ function Dashboard(props) {
 
             ))
             }
-
         </div>
-
     );
 }
 
