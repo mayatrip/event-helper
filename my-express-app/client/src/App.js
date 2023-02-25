@@ -7,7 +7,7 @@ import Dashboard from "./components/Dashboard";
 function App() {
   let [allEvents, setAllEvents] = useState([]);
 
-  // useEffect() will call getDucks() when App is mounted on the DOM
+  // useEffect() will call getEvent() when App is mounted on the DOM
   useEffect(() => {
     getEvent();  
   }, []);
@@ -35,7 +35,7 @@ function App() {
     //create a copy of my event object
     //then edit that copy so that the price property has a value that correspond to a number and not a string
     let newEvent = {...event};
-    newEvent.keyInfo.activitiyOne.price = Number(newEvent.keyInfo.activityOne.price); //reference that element to become the new one
+    newEvent.price = Number(newEvent.price); //reference that element to become the new one
     let options = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

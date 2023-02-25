@@ -16,7 +16,14 @@ CREATE TABLE activities (
         link VARCHAR(500), 
         location VARCHAR(50) NOT NULL, 
         keyInfo_id INT NOT NULL,
-        FOREIGN KEY (keyInfo_id) REFERENCES keyInfo(keyInfo_id)
 );
+
+-- TABLE DE JOINTURE
+-- ID of URL to the main ID MAIN
+-- ID of URL and ID activity
+
+-- TABLE URL
+
+
 
     

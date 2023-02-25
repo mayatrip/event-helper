@@ -25,18 +25,19 @@ module.exports = async function db(query) {
       console.log("Connected!");
 
       con.query(query, function(err, result) {
+        console.log("err is:", err);
+        console.log("result is: ", result);
         if (err) {
           results.error = err;
-          console.log(err);
+          console.log('error',err);
           reject(err);
           con.end();
           return;
         }
-
         if (!result.length) {
           if (result.affectedRows === 0) {
             results.error = "Action not complete";
-            console.log(err);
+            console.log('error select',err);
             reject(err);
             con.end();
             return;
@@ -44,7 +45,7 @@ module.exports = async function db(query) {
 
           // push the result (which should be an OkPacket) to data
           // germinal - removed next line because it returns an array in an array when empty set
-          // results.data.push(result);
+          results.data.push(result); //UNCOMMENT
         } else if (result[0].constructor.name == "RowDataPacket") {
           // push each row (RowDataPacket) to data
           result.forEach(row => results.data.push(row));

@@ -10,14 +10,14 @@ const INIT_STATE = {
         "activityOne": {
             activityName: '',
             description: '',
-            price: '',
+            price: 0,
             link: '',
             location: ''
         },
         "activityTwo": {
             activityName: '',
             description: '',
-            price: '',
+            price: 0,
             link: '',
             location: ''
         },
@@ -79,7 +79,6 @@ function AddFormEvent(props) {
 
                 <h1>Activity info</h1>
                 <h2> FIRST</h2>
-                {/* for loop */}
 
                 <label>
                     Name
