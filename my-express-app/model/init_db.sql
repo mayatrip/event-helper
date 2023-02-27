@@ -17,7 +17,6 @@ CREATE TABLE activities (
         keyInfo_id INT NOT NULL
 );
 
--- TABLE DE JOINTURE
 
 
 

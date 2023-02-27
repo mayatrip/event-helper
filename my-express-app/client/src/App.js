@@ -70,7 +70,7 @@ function App() {
         {/* for this to work, remember to import { Routes, Route} */}
         <Routes>
           <Route path="/" element={<AddFormEvent addEventFormCb={addEventForm}  />} />
-          <Route path="/dashboard" element={<Dashboard allEventsCb={allEvents}/>} />
+          <Route path="/dashboard" element={<Dashboard allEvents={allEvents}/>} />
         </Routes>
   
       </div>
