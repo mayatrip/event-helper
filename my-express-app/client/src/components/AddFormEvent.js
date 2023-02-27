@@ -73,7 +73,7 @@ function AddFormEvent(props) {
                 </label>
 
                 <h1>Activity info</h1>
-                <h2> FIRST</h2>
+                <h2> Option 1</h2>
 
 
                 <label>
@@ -115,7 +115,7 @@ function AddFormEvent(props) {
                     />
                 </label>                                                            
 
-                <h2> SECOND</h2>
+                <h2> Option 2</h2>
                 <label>
                     Name
                     <input 
