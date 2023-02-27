@@ -15,11 +15,11 @@ const INIT_STATE = {
             location: ''
         },
         "activityTwo": {
-            activityName: '',
-            description: '',
-            price: 0,
-            link: '',
-            location: ''
+            activityNameTwo: '',
+            descriptionTwo: '',
+            priceTwo: 0,
+            linkTwo: '',
+            locationTwo: ''
         },
     }
 }
@@ -38,13 +38,17 @@ function AddFormEvent(props) {
 
     function handleChange(event) {
         let {name, value} = event.target;
-
-        if (name === "keyInfo" )
         setFormData (data => ({
             ...data,
+            activityOne: {
+                ...data.activityOne,
+            },
+            activityTwo: {
+                ...data.activityTwo,
+            },
             [name]: value,
-        }));
 
+        }));
     }
 
     return (
@@ -61,7 +65,7 @@ function AddFormEvent(props) {
                     />
                 </label>
 
-                {/* <label>
+                <label>
                     Title
                     <input 
                     type= "text"
@@ -79,7 +83,7 @@ function AddFormEvent(props) {
                     value={formData.deadline}
                     onChange={handleChange}
                     />
-                </label> */}
+                </label>
 
                 <h1>Activity info</h1>
                 <h2> FIRST</h2>
@@ -91,7 +95,7 @@ function AddFormEvent(props) {
                     type= "text"
                     name= "activityName"
                     value={formData.activityName}
-                    onChange={handleChange.activityOne}
+                    onChange={handleChange}
                     />
                 </label>
 {/* 
@@ -140,9 +144,9 @@ function AddFormEvent(props) {
                     Name
                     <input 
                     type= "text"
-                    name= "activityName"
-                    value={formData.activityName}
-                    onChange={handleChange.activityOne}
+                    name= "activityNameTwo"
+                    value={formData.activityNameTwo}
+                    onChange={handleChange}
                     />
                 </label>
 
