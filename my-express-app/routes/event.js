@@ -55,8 +55,6 @@ router.post("/", async function (req, res, next) {
     ('${activityNameTwo}', '${descriptionTwo}', ${priceTwo}, '${locationTwo}', '${keyInfoResult.data[0].insertId}')`;
     keyInfoResult = await db(insertActivities);
 
-
-
     res.status(200).send(keyInfoResult);
 
   } catch (err) {
@@ -65,3 +63,5 @@ router.post("/", async function (req, res, next) {
 });
 
 module.exports = router;
+
+
