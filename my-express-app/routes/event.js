@@ -22,7 +22,7 @@ router.post("/", async function (req, res, next) {
   let {keyInfo} = req.body;
   let {date, title, deadline, activityOne, activityTwo} = keyInfo;
   let {activityName, description, price, link, location } = activityOne;
-  let {activityName: actTwoName, description: descTwo, price: priceTwo, link: linkTwo, location: locTwo } = activityTwo;
+  let {activityNameTwo: actTwoName, descriptionTwo: descTwo, priceTwo: priceTwo, linkTwo: linkTwo, locationTwo: locTwo } = activityTwo;
 
   let insertKeyInfo = `
   INSERT INTO keyInfo (date, title, deadline)

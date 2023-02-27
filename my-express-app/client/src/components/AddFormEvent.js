@@ -98,7 +98,7 @@ function AddFormEvent(props) {
                     onChange={handleChange}
                     />
                 </label>
-{/* 
+
                 <label>
                     Description
                     <input 
@@ -117,9 +117,9 @@ function AddFormEvent(props) {
                     value={formData.price}
                     onChange={handleChange.activityOne}
                     />
-                </label> */}
+                </label>
 
-                {/* <label>
+                <label>
                     Link
                     <input 
                     type= "link"
@@ -137,7 +137,7 @@ function AddFormEvent(props) {
                     value={formData.location}
                     onChange={handleChange.activityOne}
                     />
-                </label>                                                             */}
+                </label>                                                            
 
                 <h2> SECOND</h2>
                 <label>
@@ -150,13 +150,13 @@ function AddFormEvent(props) {
                     />
                 </label>
 
-                {/* <label>
+                <label>
                     Description
                     <input 
                     type= "text"
-                    name= "description"
-                    value={formData.description}
-                    onChange={handleChange.activityTwo}
+                    name= "descriptionTwo"
+                    value={formData.descriptionTwo}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -164,9 +164,9 @@ function AddFormEvent(props) {
                     Price
                     <input 
                     type= "number"
-                    name= "price"
-                    value={formData.price}
-                    onChange={handleChange.activityTwo}
+                    name= "priceTwo"
+                    value={formData.priceTwo}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -174,9 +174,9 @@ function AddFormEvent(props) {
                     Link
                     <input 
                     type= "link"
-                    name= "link"
-                    value={formData.link}
-                    onChange={handleChange.activityTwo}
+                    name= "linkTwo"
+                    value={formData.linkTwo}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -184,11 +184,11 @@ function AddFormEvent(props) {
                     Location
                     <input 
                     type= "text"
-                    name= "location"
-                    value={formData.location}
-                    onChange={handleChange.activityTwo}
+                    name= "locationTwo"
+                    value={formData.locationTwo}
+                    onChange={handleChange}
                     />
-                </label>   */}
+                </label>  
 
                 <div>
                     <button type="submit">Submit</button>

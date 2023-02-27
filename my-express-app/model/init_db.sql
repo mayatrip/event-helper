@@ -18,11 +18,12 @@ CREATE TABLE activities (
         keyInfo_id INT NOT NULL,
 );
 
--- TABLE DE JOINTURE
--- ID of URL to the main ID MAIN
--- ID of URL and ID activity
+CREATE TABLE keySource (
+    id INT id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 
--- TABLE URL
+)
+
+-- TABLE DE JOINTURE
 
 
 
