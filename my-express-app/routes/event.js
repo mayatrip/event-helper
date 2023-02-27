@@ -38,7 +38,7 @@ router.get('/:keyInfo_id', async function (req, res, next) {
 router.post("/", async function (req, res, next) {
   //get the texts from the body
   console.log(req.body);
-  let { date, title, deadline, activityNameOne, descriptionOne, priceOne, locationOne, activityNameTwo, descriptionTwo, priceTwo, locationTwo }= req.body;
+  let { date, title, deadline, activityNameOne, descriptionOne, priceOne, locationOne, activityNameTwo, descriptionTwo, priceTwo, locationTwo}= req.body;
 
   let insertKeyInfo = `
   INSERT INTO keyInfo (date, title, deadline)

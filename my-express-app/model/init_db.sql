@@ -17,7 +17,11 @@ CREATE TABLE activities (
         keyInfo_id INT NOT NULL
 );
 
---- add a colum for vot_count
-ALTER TABLE activities
-ADD vote_count INT NOT NULL;
+CREATE TABLE votes (
+        votes_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+        count INT NOT NULL,
+        activities_id INT NOT NULL
+);
+
+
     

@@ -1,8 +1,11 @@
 import React from 'react';
+import VoteCount from './VoteCount';
+
+// const voteCount = {
+//     count: 0
+// }
 
 function Dashboard(props) {
-    console.log("what does it give me:", props.allEvents.title)
-    console.log("test")
 
   return (
     <div>
@@ -20,10 +23,7 @@ function Dashboard(props) {
                             <p>{e.location}</p>
                             <p>Price/person £{e.price}</p>
                         <div>
-                            <p>Voting count</p>
-                            <p>XXXX</p>
-                            <button type="button" name="accept" >+</button> 
-                            <button type="button" name="cancelVote" >-</button> 
+                            <VoteCount/>
                         </div>
                     </div>
                 ))
