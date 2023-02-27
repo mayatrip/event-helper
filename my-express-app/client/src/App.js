@@ -28,21 +28,21 @@ function App() {
     }
   }
 
-    //Get an event by ID
-    async function getEvent(id) {
+    // //Get an event by ID
+    // async function getEvent(id) {
       
-      try {
-        let response = await fetch(`/event/${keyInfo_id}`);
-        if (response.ok) {
-          let data = await response.json();
-          setAllEvents(data);
-        } else {
-          console.log(`Server error: ${response.status}: ${response.statusText}`);
-        }
-      } catch(err) {
-        console.log(`Network error: ${err.message}`);
-      }
-    }
+    //   try {
+    //     let response = await fetch(`/event/${id}`);
+    //     if (response.ok) {
+    //       let data = await response.json();
+    //       setAllEvents(data);
+    //     } else {
+    //       console.log(`Server error: ${response.status}: ${response.statusText}`);
+    //     }
+    //   } catch(err) {
+    //     console.log(`Network error: ${err.message}`);
+    //   }
+    // }
 
   //Post a new event
   async function addEventForm(event) {
