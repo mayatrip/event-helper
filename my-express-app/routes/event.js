@@ -22,26 +22,26 @@ router.post("/", async function (req, res, next) {
   let {keyInfo} = req.body;
   let {date, title, deadline, activityOne, activityTwo} = keyInfo;
   let {activityName, description, price, link, location } = activityOne;
-  // let {activityName: actTwoName, description: descTwo, price: priceTwo, link: linkTwo, location: locTwo } = activityTwo;
+  let {activityName: actTwoName, description: descTwo, price: priceTwo, link: linkTwo, location: locTwo } = activityTwo;
 
   let insertKeyInfo = `
   INSERT INTO keyInfo (date, title, deadline)
   VALUES ('${date}', '${title}', '${deadline}')`;
 
   try {
-    //add new activity
-    const keyInfoResult = await db(insertKeyInfo);
-    console.log(insertKeyInfo);
+    //add new activities input
+    let keyInfoResult = await db(insertKeyInfo);
     //create a new activities in my table only after I have my primary keyInfo being created
-    let insertActivities = `
+    const insertActivities = `
     INSERT INTO activities (activityName, description, price, link, location, keyInfo_id)
-    VALUES ('${activityName}', '${description}', ${price}, '${link}', '${location}', ${keyInfoResult.data[0].insertId})`;
-    await db(insertActivities);
-
-    // let result = await db('SELECT date, title, deadline, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON activities.keyInfo_id = keyInfo.keyInfo_id ');
-    // let event = result.data;
+    VALUES 
+    ('${activityName}', '${description}', ${price}, '${link}', '${location}', ${keyInfoResult.data[0].insertId}),
+    ('${actTwoName}', '${descTwo}', ${priceTwo}, '${linkTwo}', '${locTwo}', ${keyInfoResult.data[0].insertId})`;
+    keyInfoResult = await db(insertActivities);
+    //TO FIGURE OUT HOW TO NOT HAVE THE KEYINFO TWICE IN MY KEYINFO TABLE?
 
     res.status(200).send(keyInfoResult);
+
   } catch (err) {
     res.status(500).send({error: err.message});
   }

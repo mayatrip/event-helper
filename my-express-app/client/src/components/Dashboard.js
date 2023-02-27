@@ -13,6 +13,14 @@ function Dashboard(props) {
                     </div>  
 
                     <div>
+                        <h1>First activity</h1>
+                        <p>{e.activityName}</p>
+                        <p>{e.description}</p>
+                        <p>{e.price}</p>
+                        <p>{e.link}</p>
+                        <p>{e.location}</p>
+
+                        <h1>Second activity</h1>
                         <p>{e.activityName}</p>
                         <p>{e.description}</p>
                         <p>{e.price}</p>

@@ -28,19 +28,23 @@ const INIT_STATE = {
 function AddFormEvent(props) {
     const [formData, setFormData] = useState(INIT_STATE)
 
+
     function handleSubmit(event) {
         event.preventDefault();
         props.addEventFormCb(formData);
         setFormData(INIT_STATE);
-        console.log("something has been submitted")
+        console.log("this is what is in the body:", formData)
     }
 
     function handleChange(event) {
-        let { name, value } = event.target;
+        let {name, value} = event.target;
+
+        if (name === "keyInfo" )
         setFormData (data => ({
             ...data,
             [name]: value,
         }));
+
     }
 
     return (
@@ -57,7 +61,7 @@ function AddFormEvent(props) {
                     />
                 </label>
 
-                <label>
+                {/* <label>
                     Title
                     <input 
                     type= "text"
@@ -75,10 +79,11 @@ function AddFormEvent(props) {
                     value={formData.deadline}
                     onChange={handleChange}
                     />
-                </label>
+                </label> */}
 
                 <h1>Activity info</h1>
                 <h2> FIRST</h2>
+
 
                 <label>
                     Name
@@ -89,7 +94,7 @@ function AddFormEvent(props) {
                     onChange={handleChange.activityOne}
                     />
                 </label>
-
+{/* 
                 <label>
                     Description
                     <input 
@@ -108,9 +113,9 @@ function AddFormEvent(props) {
                     value={formData.price}
                     onChange={handleChange.activityOne}
                     />
-                </label>
+                </label> */}
 
-                <label>
+                {/* <label>
                     Link
                     <input 
                     type= "link"
@@ -128,7 +133,7 @@ function AddFormEvent(props) {
                     value={formData.location}
                     onChange={handleChange.activityOne}
                     />
-                </label>                                                            
+                </label>                                                             */}
 
                 <h2> SECOND</h2>
                 <label>
@@ -137,11 +142,11 @@ function AddFormEvent(props) {
                     type= "text"
                     name= "activityName"
                     value={formData.activityName}
-                    onChange={handleChange.activityTwo}
+                    onChange={handleChange.activityOne}
                     />
                 </label>
 
-                <label>
+                {/* <label>
                     Description
                     <input 
                     type= "text"
@@ -179,7 +184,7 @@ function AddFormEvent(props) {
                     value={formData.location}
                     onChange={handleChange.activityTwo}
                     />
-                </label>  
+                </label>   */}
 
                 <div>
                     <button type="submit">Submit</button>
