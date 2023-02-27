@@ -11,14 +11,11 @@ CREATE TABLE keyInfo (
 CREATE TABLE activities (
         activities_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
         activityName VARCHAR(50) NOT NULL, 
-        description VARCHAR(100) NOT NULL, 
+        description TEXT NOT NULL, 
         price INT NOT NULL, 
-        link VARCHAR(500), 
         location VARCHAR(50) NOT NULL, 
         keyInfo_id INT NOT NULL
 );
-
-
 
 -- TABLE DE JOINTURE
 

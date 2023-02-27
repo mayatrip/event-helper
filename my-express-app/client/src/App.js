@@ -28,32 +28,14 @@ function App() {
     }
   }
 
-    // //Get an event by ID
-    // async function getEvent(id) {
-      
-    //   try {
-    //     let response = await fetch(`/event/${id}`);
-    //     if (response.ok) {
-    //       let data = await response.json();
-    //       setAllEvents(data);
-    //     } else {
-    //       console.log(`Server error: ${response.status}: ${response.statusText}`);
-    //     }
-    //   } catch(err) {
-    //     console.log(`Network error: ${err.message}`);
-    //   }
-    // }
-
   //Post a new event
   async function addEventForm(event) {
-    console.log("THIS IS THE SECOND EVENT BODY in parent:", event);
     //define fetch() options
 
     //create a copy of my event object
     //then edit that copy so that the price property has a value that correspond to a number and not a string
     let newEvent = {...event};
     newEvent.price = Number(newEvent.price); //reference that element to become the new one
-    console.log("THIS IS THE THIRD EVENT BODY in parent after number:", newEvent);
 
     let options = {
       method: 'POST',
@@ -65,7 +47,6 @@ function App() {
       let response = await fetch('/event', options); //do post
       if (response.ok) {
         let event = await response.json()
-        console.log("after json new BODY", event);
         setAllEvents(event);
       } else {
         console.log(`Server error: ${response.status} ${response.statusText}`);
@@ -91,15 +72,8 @@ function App() {
           <Route path="/" element={<AddFormEvent addEventFormCb={addEventForm}  />} />
           <Route path="/dashboard" element={<Dashboard allEventsCb={allEvents}/>} />
         </Routes>
-      
-        checking if it's working
-
+  
       </div>
-
-
-    
-
-
     </div>
 
   );

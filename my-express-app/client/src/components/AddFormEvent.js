@@ -2,26 +2,19 @@ import React, { useState } from "react";
 
 
 const INIT_STATE = {
-    keyInfo: {
-        date: '',
-        title: '',
-        deadline: '',
+    date: '',
+    title: '',
+    deadline: '',
 
-        activityOne: {
-            activityName: '',
-            description: '',
-            price: 0,
-            link: '',
-            location: ''
-        },
-        activityTwo: {
-            activityNameTwo: '',
-            descriptionTwo: '',
-            priceTwo: 0,
-            linkTwo: '',
-            locationTwo: ''
-        },
-    }
+    activityNameOne: '',
+    descriptionOne: '',
+    priceOne: 0,
+    locationOne: '',
+
+    activityNameTwo: '',
+    descriptionTwo: '',
+    priceTwo: 0,
+    locationTwo: ''
 }
 
 
@@ -33,22 +26,17 @@ function AddFormEvent(props) {
         event.preventDefault();
         props.addEventFormCb(formData);
         setFormData(INIT_STATE);
-        console.log("THIS IS THE FIRST EVENT BODY:", formData)
+        console.log("something has been submitted for real")
     }
 
     function handleChange(event) {
         let {name, value} = event.target;
         setFormData (data => ({
                 ...data,
-                activityOne: {
-                    ...data.activityOne,
-                },
-                activityTwo: {
-                    ...data.keyInfo.activityTwo,
-                },
                 [name]: value,
         }));
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -91,39 +79,28 @@ function AddFormEvent(props) {
                     Name
                     <input 
                     type= "text"
-                    name= "activityName"
-                    value={formData.activityName}
+                    name= "activityNameOne"
+                    value={formData.activityNameOne}
                     onChange={handleChange}
                     />
                 </label>
 
                 <label>
                     Description
-                    <input 
-                    type= "text"
-                    name= "description"
-                    value={formData.description}
-                    onChange={handleChange.activityOne}
-                    />
+                    <textarea
+                    name= "descriptionOne"
+                    value={formData.descriptionOne}
+                    onChange={handleChange}
+                    /> 
                 </label>
 
                 <label>
                     Price
                     <input 
                     type= "number"
-                    name= "price"
-                    value={formData.price}
-                    onChange={handleChange.activityOne}
-                    />
-                </label>
-
-                <label>
-                    Link
-                    <input 
-                    type= "link"
-                    name= "link"
-                    value={formData.link}
-                    onChange={handleChange.activityOne}
+                    name= "priceOne"
+                    value={formData.priceOne}
+                    onChange={handleChange}
                     />
                 </label>
 
@@ -131,9 +108,9 @@ function AddFormEvent(props) {
                     Location
                     <input 
                     type= "text"
-                    name= "location"
-                    value={formData.location}
-                    onChange={handleChange.activityOne}
+                    name= "locationOne"
+                    value={formData.locationOne}
+                    onChange={handleChange}
                     />
                 </label>                                                            
 
@@ -150,8 +127,7 @@ function AddFormEvent(props) {
 
                 <label>
                     Description
-                    <input 
-                    type= "text"
+                    <textarea
                     name= "descriptionTwo"
                     value={formData.descriptionTwo}
                     onChange={handleChange}
@@ -164,16 +140,6 @@ function AddFormEvent(props) {
                     type= "number"
                     name= "priceTwo"
                     value={formData.priceTwo}
-                    onChange={handleChange}
-                    />
-                </label>
-
-                <label>
-                    Link
-                    <input 
-                    type= "link"
-                    name= "linkTwo"
-                    value={formData.linkTwo}
                     onChange={handleChange}
                     />
                 </label>

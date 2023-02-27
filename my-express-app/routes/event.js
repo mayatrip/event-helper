@@ -6,7 +6,7 @@ const db = require("../model/helper");
 router.get('/', async function(req, res, next) {
 
   try {
-    let result = await db('SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id');
+    let result = await db('SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id');
     
     let event = result.data;
     res.send(event);
@@ -20,7 +20,7 @@ router.get('/:keyInfo_id', async function (req, res, next) {
   let { keyInfo_id } = req.params;
 
   try {
-    let result = await db(`SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id WHERE keyInfo.keyInfo_id = ${keyInfo_id} `);
+    let result = await db(`SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id WHERE keyInfo.keyInfo_id = ${keyInfo_id} `);
 
     let event = result.data;
     if (event.length !== 0) {
@@ -38,10 +38,7 @@ router.get('/:keyInfo_id', async function (req, res, next) {
 router.post("/", async function (req, res, next) {
   //get the texts from the body
   console.log(req.body);
-  let {keyInfo} = req.body;
-  let {date, title, deadline, activityOne, activityTwo} = keyInfo;
-  let {activityName, description, price, link, location } = activityOne;
-  let {activityNameTwo: actTwoName, descriptionTwo: descTwo, priceTwo: priceTwo, linkTwo: linkTwo, locationTwo: locTwo } = activityTwo;
+  let { date, title, deadline, activityNameOne, descriptionOne, priceOne, locationOne, activityNameTwo, descriptionTwo, priceTwo, locationTwo }= req.body;
 
   let insertKeyInfo = `
   INSERT INTO keyInfo (date, title, deadline)
@@ -52,10 +49,10 @@ router.post("/", async function (req, res, next) {
     let keyInfoResult = await db(insertKeyInfo);
     //create a new activities in my table only after I have my primary keyInfo being created
     const insertActivities = `
-    INSERT INTO activities (activityName, description, price, link, location, keyInfo_id)
+    INSERT INTO activities (activityName, description, price, location, keyInfo_id)
     VALUES 
-    ('${activityName}', '${description}', ${price}, '${link}', '${location}', '${keyInfoResult.data[0].insertId}'),
-    ('${actTwoName}', '${descTwo}', ${priceTwo}, '${linkTwo}', '${locTwo}', '${keyInfoResult.data[0].insertId}')`;
+    ('${activityNameOne}', '${descriptionOne}', ${priceOne}, '${locationOne}', '${keyInfoResult.data[0].insertId}'),
+    ('${activityNameTwo}', '${descriptionTwo}', ${priceTwo}, '${locationTwo}', '${keyInfoResult.data[0].insertId}')`;
     keyInfoResult = await db(insertActivities);
 
 
