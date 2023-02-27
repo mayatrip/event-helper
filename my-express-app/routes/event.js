@@ -6,13 +6,32 @@ const db = require("../model/helper");
 router.get('/', async function(req, res, next) {
 
   try {
-    let result = await db('SELECT activities.keyInfo_id, date, title, deadline, id, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id ');
+    let result = await db('SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id');
+    
     let event = result.data;
     res.send(event);
   }catch (err) {
     res.status(500).send({error: err.message});
   }
+});
 
+/* GET event listing by ID */
+router.get('/:keyInfo_id', async function (req, res, next) {
+  let { keyInfo_id } = req.params;
+
+  try {
+    let result = await db(`SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, link, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id WHERE keyInfo.keyInfo_id = ${keyInfo_id} `);
+
+    let event = result.data;
+    if (event.length !== 0) {
+      res.send(event);
+    } else {
+      // event array is empty... no event found
+      res.status(404).send({ error: 'Event not found' });
+    }
+  }catch (err) {
+    res.status(500).send({error: err.message});
+  }
 });
 
 /* POST a new acitvity */
@@ -35,10 +54,11 @@ router.post("/", async function (req, res, next) {
     const insertActivities = `
     INSERT INTO activities (activityName, description, price, link, location, keyInfo_id)
     VALUES 
-    ('${activityName}', '${description}', ${price}, '${link}', '${location}', ${keyInfoResult.data[0].insertId}),
-    ('${actTwoName}', '${descTwo}', ${priceTwo}, '${linkTwo}', '${locTwo}', ${keyInfoResult.data[0].insertId})`;
+    ('${activityName}', '${description}', ${price}, '${link}', '${location}', '${keyInfoResult.data[0].insertId}'),
+    ('${actTwoName}', '${descTwo}', ${priceTwo}, '${linkTwo}', '${locTwo}', '${keyInfoResult.data[0].insertId}')`;
     keyInfoResult = await db(insertActivities);
-    //TO FIGURE OUT HOW TO NOT HAVE THE KEYINFO TWICE IN MY KEYINFO TABLE?
+
+
 
     res.status(200).send(keyInfoResult);
 

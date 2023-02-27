@@ -2,19 +2,19 @@ import React, { useState } from "react";
 
 
 const INIT_STATE = {
-    "keyInfo": {
+    keyInfo: {
         date: '',
         title: '',
         deadline: '',
 
-        "activityOne": {
+        activityOne: {
             activityName: '',
             description: '',
             price: 0,
             link: '',
             location: ''
         },
-        "activityTwo": {
+        activityTwo: {
             activityNameTwo: '',
             descriptionTwo: '',
             priceTwo: 0,
@@ -33,24 +33,22 @@ function AddFormEvent(props) {
         event.preventDefault();
         props.addEventFormCb(formData);
         setFormData(INIT_STATE);
-        console.log("this is what is in the body:", formData)
+        console.log("THIS IS THE FIRST EVENT BODY:", formData)
     }
 
     function handleChange(event) {
         let {name, value} = event.target;
         setFormData (data => ({
-            ...data,
-            activityOne: {
-                ...data.activityOne,
-            },
-            activityTwo: {
-                ...data.activityTwo,
-            },
-            [name]: value,
-
+                ...data,
+                activityOne: {
+                    ...data.activityOne,
+                },
+                activityTwo: {
+                    ...data.keyInfo.activityTwo,
+                },
+                [name]: value,
         }));
     }
-
     return (
         <div>
             <form onSubmit={handleSubmit}>
