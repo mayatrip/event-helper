@@ -10,11 +10,13 @@ const INIT_STATE = {
     descriptionOne: '',
     priceOne: 0,
     locationOne: '',
+    voteCountOne: 0,
 
     activityNameTwo: '',
     descriptionTwo: '',
     priceTwo: 0,
-    locationTwo: ''
+    locationTwo: '',
+    voteCountTwo: 0
 }
 
 
