@@ -2,10 +2,6 @@ import React from 'react';
 import './Dashboard.css';
 import VoteCount from './VoteCount';
 
-// const voteCount = {
-//     count: 0
-// }
-
 function Dashboard(props) {
 
   return (
@@ -27,7 +23,7 @@ function Dashboard(props) {
                                 </ul>
 
                             <div>
-                                <VoteCount/>
+                                <VoteCount addVoteCb2={props.addVoteCb1}/>
                             </div>
                         </div>
                     </div>
