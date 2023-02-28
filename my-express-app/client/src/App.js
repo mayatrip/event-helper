@@ -28,6 +28,21 @@ function App() {
     }
   }
 
+  // // Get all the events by ID
+  // async function getEvent(id) {
+  //   try {
+  //     let response = await fetch('/:keyInfo_id');
+  //     if (response.ok || response === id ) {
+  //       let data = await response.json();
+  //       setAllEvents(data);
+  //     } else {
+  //       console.log(`Server error: ${response.status}: ${response.statusText}`);
+  //     }
+  //   } catch(err) {
+  //     console.log(`Network error: ${err.message}`);
+  //   }
+  // }
+
   //Post a new event
   async function addEventForm(event) {
     //define fetch() options
@@ -70,8 +85,16 @@ function App() {
       <div>
         {/* for this to work, remember to import { Routes, Route} */}
         <Routes>
-          <Route path="/" element={<AddFormEvent addEventFormCb={addEventForm}  />} />
-          <Route path="/dashboard" element={<Dashboard allEvents={allEvents}/>} />
+          <Route path="/" element={<AddFormEvent 
+            addEventFormCb={addEventForm}  
+            />} 
+          />
+
+          <Route path="/dashboard" element={<Dashboard 
+            allEvents={allEvents}
+            addVoteCb1={addVote}
+            />} 
+          />
         </Routes>
   
       </div>

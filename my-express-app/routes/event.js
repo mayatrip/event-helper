@@ -62,6 +62,33 @@ router.post("/", async function (req, res, next) {
   }
 });
 
+
+// // PUT modified vote count
+// router.put("/", async (req, res) => {
+//   let { keyInfo_id } = req.params;
+//   let { date, title, deadline, activityNameOne, descriptionOne, priceOne, locationOne, activityNameTwo, descriptionTwo, priceTwo, locationTwo, voteCount}= req.body;
+
+//   try {
+//       let result = await db(`SELECT * FROM ducks WHERE id = ${duckId}`);  // does duck exist?
+//       if (result.data.length === 0) {
+//           res.status(404).send({ error: 'Duck not found' });
+//       } else {
+//           let sql = `
+//               UPDATE ducks 
+//               SET name = '${name}', age = ${age}
+//               WHERE id = ${duckId}
+//           `;
+
+//           await db(sql);  // update duck
+//           let result = await db('SELECT * FROM ducks');
+//           let ducks = result.data;
+//           res.send(ducks);  // return updated array
+//       }
+//   } catch (err) {
+//       res.status(500).send({ error: err.message });
+//   }
+// });
+
 module.exports = router;
 
 
