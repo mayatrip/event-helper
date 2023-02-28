@@ -6,19 +6,17 @@ let voteCount = {
 }
 
 
-function VoteCount(props) {
-const [voteInc, setVoteInc] = useState (voteCount);
-    
+function VoteCount(props) {    
     function handleClick(event) {
         event.preventDefault();
-        props.addVoteCb2(voteInc);
+        props.addVoteCb2(voteCount);
         console.log("someone vote yes")
     }
 
   return (
     <div className="voteCount">
         Voting count
-        <p className="voteCount">XXX</p>
+        <p className="voteCount">0</p>
         <button   
             type="button" 
             class="btn btn-warning" 

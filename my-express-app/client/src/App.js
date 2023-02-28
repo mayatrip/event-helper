@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
+  let [allVotes, setAllVotes] = useState([])
 
   // useEffect() will call getEvent() when App is mounted on the DOM
   useEffect(() => {
@@ -45,8 +46,6 @@ function App() {
 
   //Post a new event
   async function addEventForm(event) {
-    //define fetch() options
-
     //create a copy of my event object
     //then edit that copy so that the price property has a value that correspond to a number and not a string
     let newEvent = {...event};
@@ -70,6 +69,32 @@ function App() {
       console.log(`Server error: ${err.message}`);
     }
   }
+
+  // PUT: Add a vote to voting count
+  async function addVote(id) {
+    // Find duck in state and increase age
+    let vote = allVotes.find(v => v.id === id);
+    vote.count++;
+
+    // Define fetch() options
+    let options = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(vote)
+    };
+
+    try {
+        let response = await fetch(`/event/:activities_id`, options);  // do PUT
+        if (response.ok) {
+            let votes = await response.json();
+            setAllVotes(votes);
+        } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+        }
+    } catch (err) {
+        console.log(`Server error: ${err.message}`);
+    }
+}
 
   return (
 

@@ -63,31 +63,31 @@ router.post("/", async function (req, res, next) {
 });
 
 
-// // PUT modified vote count
-// router.put("/", async (req, res) => {
-//   let { keyInfo_id } = req.params;
-//   let { date, title, deadline, activityNameOne, descriptionOne, priceOne, locationOne, activityNameTwo, descriptionTwo, priceTwo, locationTwo, voteCount}= req.body;
+// PUT modified vote count
+router.put("/:activities_id", async (req, res) => {
+  let { activities_id } = req.params;
+  let {count}= req.body;
 
-//   try {
-//       let result = await db(`SELECT * FROM ducks WHERE id = ${duckId}`);  // does duck exist?
-//       if (result.data.length === 0) {
-//           res.status(404).send({ error: 'Duck not found' });
-//       } else {
-//           let sql = `
-//               UPDATE ducks 
-//               SET name = '${name}', age = ${age}
-//               WHERE id = ${duckId}
-//           `;
+  try {
+      let result = await db(`SELECT * FROM votes WHERE id = ${activities_id}`);  //does activities id exist
+      if (result.data.length === 0) {
+          res.status(404).send({ error: 'No vote' });
+      } else {
+          let sql = `
+              UPDATE votes 
+              SET count = '${count}'
+              WHERE id = ${activities_id}
+          `;
 
-//           await db(sql);  // update duck
-//           let result = await db('SELECT * FROM ducks');
-//           let ducks = result.data;
-//           res.send(ducks);  // return updated array
-//       }
-//   } catch (err) {
-//       res.status(500).send({ error: err.message });
-//   }
-// });
+          await db(sql);  // update duck
+          let result = await db('SELECT * FROM votes');
+          let votes = result.data;
+          res.send(votes);  // return updated array
+      }
+  } catch (err) {
+      res.status(500).send({ error: err.message });
+  }
+});
 
 module.exports = router;
 
