@@ -1,4 +1,5 @@
 import React from 'react';
+import './Dashboard.css';
 import VoteCount from './VoteCount';
 
 // const voteCount = {
@@ -9,30 +10,30 @@ function Dashboard(props) {
 
   return (
     <div>
-        <div>
+        <div className='thumbGrid'>
             {
                 props.allEvents.map(e => (
                     <div key={e.id}>
-                        <h2>Info</h2>
-                            <p>{e.date}</p>
-                            <p>{e.title}</p>
-                            <p>Answer before: {e.deadline}</p>
-                        <h3>Activities</h3>
-                            <p>{e.activityName}</p>
-                            <p>{e.description}</p>
-                            <p>{e.location}</p>
-                            <p>Price/person £{e.price}</p>
-                        <div>
-                            <VoteCount/>
+                        <div className='subGrid'>
+                            <h2>To remember</h2>
+                                <p>Save the date for {e.title} on {e.date}</p>
+                                <p>Answer before {e.deadline}</p>
+                            <h2>Activity Info</h2>
+                                <ul>
+                                <li>{e.activityName}</li>
+                                <li>{e.description}</li>
+                                <li>{e.location}</li>
+                                <li>Price/person £{e.price}</li>
+                                </ul>
+
+                            <div>
+                                <VoteCount/>
+                            </div>
                         </div>
                     </div>
                 ))
             }
-
         </div>
-
-
-
     </div>
   )
 }
