@@ -6,7 +6,9 @@ import Dashboard from "./components/Dashboard";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
-  let [allVotes, setAllVotes] = useState([])
+  // let [allVotes, setAllVotes] = useState([]);
+
+  console.log("initial one", allEvents);
 
   // useEffect() will call getEvent() when App is mounted on the DOM
   useEffect(() => {
@@ -29,20 +31,25 @@ function App() {
     }
   }
 
-  // // Get all the events by ID
-  // async function getEvent(id) {
-  //   try {
-  //     let response = await fetch('/:keyInfo_id');
-  //     if (response.ok || response === id ) {
-  //       let data = await response.json();
-  //       setAllEvents(data);
-  //     } else {
-  //       console.log(`Server error: ${response.status}: ${response.statusText}`);
-  //     }
-  //   } catch(err) {
-  //     console.log(`Network error: ${err.message}`);
-  //   }
-  // }
+  // useEffect() will call getEvent() when App is mounted on the DOM
+  useEffect(() => {
+    getUniqueEvent();  
+  }, []);
+
+  // Get all the events by ID
+  async function getUniqueEvent(id) {
+    try {
+      let response = await fetch('/:keyInfo_id');
+      if (response.ok || response.id === id ) {
+        let data = await response.json();
+        setAllEvents(data);
+      } else {
+        console.log(`Server error: ${response.status}: ${response.statusText}`);
+      }
+    } catch(err) {
+      console.log(`Network error: ${err.message}`);
+    }
+  }
 
   //Post a new event
   async function addEventForm(event) {
@@ -70,37 +77,37 @@ function App() {
     }
   }
 
-  // PUT: Add a vote to voting count
-  async function addVote(id) {
-    // Find duck in state and increase age
-    let vote = allVotes.find(v => v.id === id);
-    vote.count++;
+//   // PUT: Add a vote to voting count
+//   async function addVote(id) {
+//     // Find activities in state and increase the voting count
+//     let vote = allVotes.find(v => v.id === id);
+//     vote.count++;
 
-    // Define fetch() options
-    let options = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(vote)
-    };
+//     // Define fetch() options
+//     let options = {
+//         method: 'PUT',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(vote)
+//     };
 
-    try {
-        let response = await fetch(`/event/:activities_id`, options);  // do PUT
-        if (response.ok) {
-            let votes = await response.json();
-            setAllVotes(votes);
-        } else {
-            console.log(`Server error: ${response.status} ${response.statusText}`);
-        }
-    } catch (err) {
-        console.log(`Server error: ${err.message}`);
-    }
-}
+//     try {
+//         let response = await fetch(`/event/:activities_id`, options);  // do PUT
+//         if (response.ok) {
+//             let votes = await response.json();
+//             setAllVotes(votes);
+//         } else {
+//             console.log(`Server error: ${response.status} ${response.statusText}`);
+//         }
+//     } catch (err) {
+//         console.log(`Server error: ${err.message}`);
+//     }
+// }
 
   return (
 
     <div className="App">
       <header>
-        <h1>BLABLABLA</h1>
+        <h1>NUGGETS EVENT</h1>
       </header>
 
       <nav>
@@ -117,7 +124,7 @@ function App() {
 
           <Route path="/dashboard" element={<Dashboard 
             allEvents={allEvents}
-            addVoteCb1={addVote}
+            // addVoteCb1={addVote}
             />} 
           />
         </Routes>

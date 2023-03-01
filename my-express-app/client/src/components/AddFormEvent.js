@@ -163,7 +163,7 @@ function AddFormEvent(props) {
                 </div>
                     
                 <div className="grid3Col">
-                    <button type="submit" class="btn btn-warning">Submit</button>
+                    <button type="submit" className="btn btn-warning">Submit</button>
                 </div>
 
             </form>

@@ -1,5 +1,9 @@
 
 -- (Re)create the table
+DROP TABLE IF EXISTS keyInfo;
+DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS votes;
+
 
 CREATE TABLE keyInfo (
     keyInfo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 

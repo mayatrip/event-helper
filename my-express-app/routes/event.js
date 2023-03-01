@@ -53,9 +53,11 @@ router.post("/", async function (req, res, next) {
     VALUES 
     ('${activityNameOne}', '${descriptionOne}', ${priceOne}, '${locationOne}', '${keyInfoResult.data[0].insertId}'),
     ('${activityNameTwo}', '${descriptionTwo}', ${priceTwo}, '${locationTwo}', '${keyInfoResult.data[0].insertId}')`;
-    keyInfoResult = await db(insertActivities);
 
-    res.status(200).send(keyInfoResult);
+    keyInfoResult = await db(insertActivities);
+    let result = await db('SELECT activities.keyInfo_id, date, title, deadline, activities_id, activityName, description, price, location FROM activities INNER JOIN keyInfo ON keyInfo.keyInfo_id = activities.keyInfo_id')
+
+    res.status(200).send(result.data);
 
   } catch (err) {
     res.status(500).send({error: err.message});
