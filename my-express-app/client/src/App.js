@@ -30,7 +30,6 @@ function App() {
       console.log(`Network error: ${err.message}`);
     }
   }
-
   // useEffect() will call getEvent() when App is mounted on the DOM
   useEffect(() => {
     getUniqueEvent();  
