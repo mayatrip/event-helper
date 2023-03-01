@@ -4,7 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var eventRouter = require('./routes/event');
+var eventRouter = require('./routes/events');
+var votingRouter = require('./routes/voting');
 
 const cors = require('cors');  // add at the top
 
@@ -19,7 +20,8 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/event', eventRouter);
+app.use('/events', eventRouter);
+app.use('/voting', votingRouter);
 
 
 
