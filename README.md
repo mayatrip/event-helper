@@ -31,7 +31,8 @@ In your MySQL console, you can run `use event;` and then `describe keyInfo;`, `d
 ## About my codes
 
 ### Database
-A init_db.sql file is already available in this repository project
+- A init_db.sql file is already available in this repository project
+- If I did it right, you should have 2 events already created as a sample
 
 ### Client side
 - for some reasons, when you fill the form for the event and activities MySql doesn't allow special characters such as: , ? ' etc. So when you test, keep this in mind
