@@ -1,105 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import './App.css';
+
+import Local from "./helpers/Local";
+import Api from "./helpers/Api";
+
+import PrivateRoute from "./components/PrivateRoute";
 import AddFormEvent from "./components/AddFormEvent";
 import Dashboard from "./components/Dashboard";
-import Local from "./helpers/Local";
 
 function App() {
-  let [allEvents, setAllEvents] = useState([]);
-  // let [allVotes, setAllVotes] = useState([]);
+  const [user, setUser] = useState(Local.getUser());
+  const [loginErrorMsg, setLoginErrorMsg] = useState('');
+  const navigate = useNavigate();
 
-  // useEffect() will call getEvent() when App is mounted on the DOM
-  useEffect(() => {
-    getEvent();  
-  }, []);
-  // the empty [] means only call it once
-
-  //Get all the events
-  async function getEvent() {
-    try {
-      let response = await fetch('/events');
-      if (response.ok) {
-        let data = await response.json();
-        setAllEvents(data);
-      } else {
-        console.log(`Server error: ${response.status}: ${response.statusText}`);
-      }
-    } catch(err) {
-      console.log(`Network error: ${err.message}`);
-    }
-  }
-  // useEffect() will call getEvent() when App is mounted on the DOM
-  // useEffect(() => {
-  //   getUniqueEvent();  
-  // }, []);
-
-  // Get all the events by ID
-  // async function getUniqueEvent(id) {
-  //   try {
-  //     let response = await fetch(`/event/${id}`);
-  //     if (response.ok) {
-  //       let data = await response.json();
-  //       setAllEvents(data[0]);
-  //     } else {
-  //       console.log(`Server error: ${response.status}: ${response.statusText}`);
-  //     }
-  //   } catch(err) {
-  //     console.log(`Network error: ${err.message}`);
-  //   }
-  // }
-
-  //Post a new event
-  async function addEventForm(event) {
-    //create a copy of my event object
-    //then edit that copy so that the price property has a value that correspond to a number and not a string
-    let newEvent = {...event};
-    newEvent.price = Number(newEvent.price); //reference that element to become the new one
-
-    let options = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newEvent)//name of the copy
-    };
-
-    try {
-      let response = await fetch('/event', options); //do post
-      if (response.ok) {
-        let event = await response.json()
-        setAllEvents(event);
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    }catch (err) {
-      console.log(`Server error: ${err.message}`);
+  async function doLogin(username, password) {
+    let uresponse = await Api.loginUser(username, password);
+    if (uresponse.ok){
+      Local.saveUserInfo(uresponse.data.token, uresponse.data.user);
+      setUser(uresponse.data.user);
+      setLoginErrorMsg('');
+      navigate('/');
+    } else {
+      setLoginErrorMsg('Login failed');
     }
   }
 
-//   // PUT: Add a vote to voting count
-//   async function addVote(id) {
-//     // Find activities in state and increase the voting count
-//     let vote = allVotes.find(v => v.id === id);
-//     vote.count++;
-
-//     // Define fetch() options
-//     let options = {
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(vote)
-//     };
-
-//     try {
-//         let response = await fetch(`/event/:activities_id`, options);  // do PUT
-//         if (response.ok) {
-//             let votes = await response.json();
-//             setAllVotes(votes);
-//         } else {
-//             console.log(`Server error: ${response.status} ${response.statusText}`);
-//         }
-//     } catch (err) {
-//         console.log(`Server error: ${err.message}`);
-//     }
-// }
+  async function doLogout(){
+    Local.removerUserInfo();
+    setUser(null);
+    navigate('/');
+  }
 
   return (
 
