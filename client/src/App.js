@@ -9,7 +9,6 @@ import PrivateRoute from "./components/PrivateRoute";
 import AddFormEvent from "./components/AddFormEvent";
 import DashboardView from "./views/DashboardView";
 import LoginView from "./views/LoginView";
-import EventsVoteView from "./views/EventsVoteView";
 import AddEventView from "./views/AddEventView";
 
 function App() {
@@ -62,7 +61,6 @@ function App() {
       <nav>
         <Link to="/">Home</Link> 
         <Link to="/dashboard">All Events</Link>
-        <Link to="/events">Vote!</Link>
         <Link to="/add-event">Add Events</Link>
         {user && <Link to="/" onClick={doLogout}>Logout</Link>}
       </nav>
@@ -74,12 +72,7 @@ function App() {
           <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/dashboard" element={
             <PrivateRoute>
-              <DashboardView/>
-            </PrivateRoute>
-          } />
-          <Route path="/events" element={
-            <PrivateRoute>
-              <EventsVoteView/>
+              <DashboardView allEvents={allEvents}/>
             </PrivateRoute>
           } />
           <Route path="/add-event" element={
