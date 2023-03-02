@@ -7,7 +7,10 @@ import Api from "./helpers/Api";
 
 import PrivateRoute from "./components/PrivateRoute";
 import AddFormEvent from "./components/AddFormEvent";
-import Dashboard from "./components/Dashboard";
+import DashboardView from "./views/DashboardView";
+import LoginView from "./views/LoginView";
+import EventsVoteView from "./views/EventsVoteView";
+import AddEventView from "./views/AddEventView";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());
@@ -20,7 +23,7 @@ function App() {
       Local.saveUserInfo(uresponse.data.token, uresponse.data.user);
       setUser(uresponse.data.user);
       setLoginErrorMsg('');
-      navigate('/');
+      navigate('/dashboard');
     } else {
       setLoginErrorMsg('Login failed');
     }
@@ -40,22 +43,33 @@ function App() {
       </header>
 
       <nav>
-        <Link to="/">Home</Link> <Link to="/dashboard">Dashboard</Link>
+        <Link to="/">Home</Link> 
+        <Link to="/dashboard">All Events</Link>
+        <Link to="/events">Vote!</Link>
+        <Link to="/add-event">Add Events</Link>
+        {user && <Link to="/" onClick={doLogout}>Logout</Link>}
       </nav>
 
       <div>
         {/* for this to work, remember to import { Routes, Route} */}
         <Routes>
-          <Route path="/" element={<AddFormEvent 
-            addEventFormCb={addEventForm}  
-            />} 
-          />
-
-          <Route path="/dashboard" element={<Dashboard 
-            allEvents={allEvents}
-            // addVoteCb1={addVote}
-            />} 
-          />
+          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <DashboardView/>
+            </PrivateRoute>
+          } />
+          <Route path="/events" element={
+            <PrivateRoute>
+              <EventsVoteView/>
+            </PrivateRoute>
+          } />
+          <Route path="/add-event" element={
+            <PrivateRoute>
+              <AddEventView/>
+            </PrivateRoute>
+          } />
         </Routes>
   
       </div>
