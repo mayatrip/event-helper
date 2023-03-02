@@ -21,6 +21,13 @@ class Api {
         return await this._doFetch('/login', 'POST', body);
     }
 
+    //Register
+    static async registerUser(username, password) {
+        let body = { username, password };
+
+        return await this._doFetch('/register', POST, body);
+    }
+
     //Get all users
     static async getUsers() {
         return await this._doFetch('/users');
@@ -29,6 +36,15 @@ class Api {
     //General GET (for any URL, like /events)
     static async getContent(url) {
         return await this._doFetch(url);
+    }
+
+    //Post event
+    static async addEvent(eventObj) {
+        return await this._doFetch('/events', 'POST', eventObj);
+    }
+
+    static async addVote(id, eventObj){
+        return await this._doFetch(`/events/${id}`, 'PATCH', eventObj);
     }
 
 
