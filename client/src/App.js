@@ -16,6 +16,14 @@ function App() {
   const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
+  const[allEvents, setAllEvents] = useState([]);
+
+  useEffect(() => {
+    if(user) {
+      getEvents();
+    }
+  }, []);
+
 
   async function doLogin(username, password) {
     let uresponse = await Api.loginUser(username, password);
@@ -33,6 +41,15 @@ function App() {
     Local.removerUserInfo();
     setUser(null);
     navigate('/');
+  }
+
+  async function getEvents() {
+    let uresponse = await Api.getContent('/events');
+    if (uresponse.ok){
+      setAllEvents(uresponse.data);
+    } else{
+      console.log(`Error! ${uresponse.error}`);
+    }
   }
 
   return (
