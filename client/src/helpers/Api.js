@@ -25,7 +25,7 @@ class Api {
     static async registerUser(username, password) {
         let body = { username, password };
 
-        return await this._doFetch('/register', POST, body);
+        return await this._doFetch('/register', 'POST', body);
     }
 
     //Get all users
