@@ -5,7 +5,7 @@ const { ensureLogin } = require('../middleware/guards');
 
 
 /* GET all event (activity) listings. */
-router.get('/', async function(req, res, next) {
+router.get('/', ensureLogin, async function(req, res, next) {
   try {
     let result = await db('SELECT * FROM activities');
     let event = result.data;
@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET event (activity) listing by ID */
-router.get(`/:id`, async function (req, res, next) {
+router.get(`/:id`, ensureLogin, async function (req, res, next) {
   let id = Number(req.params.id);
   try {
     let result = await db(`SELECT * FROM activities WHERE activities_id = ${id}`);
