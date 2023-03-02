@@ -51,6 +51,15 @@ function App() {
     }
   }
 
+  async function addVote(id, voteObj){
+    let uresponse = await Api.addVote(id, voteObj);
+    if (uresponse.ok){
+      setAllEvents(uresponse.data);
+    } else {
+      console.log(`Error! ${uresponse.error}`);
+    }
+  }
+
   return (
 
     <div className="App">
@@ -72,7 +81,7 @@ function App() {
           <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/dashboard" element={
             <PrivateRoute>
-              <DashboardView allEvents={allEvents}/>
+              <DashboardView allEvents={allEvents} addVoteCb={(id, voteObj) => addVote(id, voteObj)}/>
             </PrivateRoute>
           } />
           <Route path="/add-event" element={

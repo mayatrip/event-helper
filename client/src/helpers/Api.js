@@ -43,8 +43,8 @@ class Api {
         return await this._doFetch('/events', 'POST', eventObj);
     }
 
-    static async addVote(id, eventObj){
-        return await this._doFetch(`/events/${id}`, 'PATCH', eventObj);
+    static async addVote(id, voteObj){
+        return await this._doFetch(`/events/${id}`, 'PATCH', voteObj);
     }
 
 
