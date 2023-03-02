@@ -1,12 +1,12 @@
 import React from "react";
-import './VoteCount.css';
+import './VoteButton.css';
 
 let voteCount = {
     count: 0,
 }
 
 
-function VoteCount(props) {    
+function VoteButton(props) {    
     function handleClick(event) {
         event.preventDefault();
         props.addVoteCb2(voteCount);
@@ -14,9 +14,9 @@ function VoteCount(props) {
     }
 
   return (
-    <div className="voteCount">
+    <div className="voteButton">
         Voting count
-        <p className="voteCount">0</p>
+        <p className="voteButton">0</p>
         <button   
             type="button" 
             className="btn btn-warning" 
@@ -29,4 +29,4 @@ function VoteCount(props) {
   )
 }
 
-export default VoteCount;
+export default VoteButton;

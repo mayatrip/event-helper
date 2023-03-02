@@ -1,7 +1,7 @@
 import React from 'react';
+import VoteButton from '../components/VoteButton';
 
 function DashboardView(props) {
-    console.log("from the dash:", props.allEvents);
 
   return (
     <div className='DashboardView'>
@@ -20,7 +20,7 @@ function DashboardView(props) {
                             <li>Price/person £{e.price}</li>
                             </ul>
                         <div>
-                            Vote Count Component was here
+                            <VoteButton />
                         </div>
                     </div>
                 </div>
