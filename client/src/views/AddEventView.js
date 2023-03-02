@@ -1,7 +1,12 @@
-import React from 'react'
+import React from 'react';
+import AddFormEvent from '../components/AddFormEvent';
 
 export default function AddEventView() {
   return (
-    <div>AddEventView</div>
+    <div>
+        <h1>AddEventView</h1>
+        <AddFormEvent/>
+
+    </div>
   )
 }
