@@ -5,7 +5,7 @@ const { ensureLogin } = require('../middleware/guards');
 
 
 /* GET all event (activity) listings. */
-router.get('/', ensureLogin, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   try {
     let result = await db('SELECT * FROM activities');
     let event = result.data;
@@ -54,8 +54,9 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
   const id = req.params.id;
   const changes = req.body;
   let sql = `
-    UPDATE activities
-    SET votes = ${changes.count} WHERE activities_id = ${id}
+    UPDATE activities SET votes = ${changes.count},
+    attending = "${changes.attending}" 
+    WHERE activities_id = ${id}
   `;
   try {
     await db(sql);
