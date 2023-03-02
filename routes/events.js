@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const { ensureLogin } = require('../middleware/guards');
+
 
 /* GET all event (activity) listings. */
 router.get('/', async function(req, res, next) {
@@ -21,7 +23,7 @@ router.get(`/:id`, async function (req, res, next) {
     if (result.data.length === 0) {
       res.status(404).send({error: 'item not found'})
     } else {
-      res.send(result.data)
+      res.send(result.data[0])
     }
   } catch(err) {
     res.status(500).send({error: err.message})
@@ -29,7 +31,7 @@ router.get(`/:id`, async function (req, res, next) {
 });
 
 /* POST a new event (keyInfo) and associated activities */
-router.post('/', async function(req, res, next) {
+router.post('/', ensureLogin, async function(req, res, next) {
   let newEvent = req.body;
   let sql = `
     INSERT INTO activities (activityName, description, price, location, keyInfo_id)

@@ -6,6 +6,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var eventRouter = require('./routes/events');
 var votingRouter = require('./routes/voting');
+var authRouter = require('./routes/auth');
 
 const cors = require('cors');  // add at the top
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/', authRouter); 
 app.use('/events', eventRouter);
 app.use('/voting', votingRouter);
 

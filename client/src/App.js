@@ -17,7 +17,7 @@ function App() {
   //Get all the events
   async function getEvent() {
     try {
-      let response = await fetch('/event');
+      let response = await fetch('/events');
       if (response.ok) {
         let data = await response.json();
         setAllEvents(data);
