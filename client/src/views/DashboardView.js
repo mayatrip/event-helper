@@ -3,6 +3,16 @@ import VoteButton from '../components/VoteButton';
 
 function DashboardView(props) {
 
+const handleClick = (id) => {
+    console.log(id);
+    let selectedEvent = props.allEvents.find(i => i.activities_id === id);
+    let newCount = selectedEvent.votes + 1;
+    let newAttending = selectedEvent.attending + props.user.username;
+    let voteObj = {count: newCount, attending: newAttending};
+    console.log("VOTE OBJ", voteObj, id);
+    props.addVoteCb(id, voteObj);
+}
+
   return (
     <div className='DashboardView'>
         {
@@ -20,7 +30,7 @@ function DashboardView(props) {
                             <li>Price/person £{e.price}</li>
                             </ul>
                         <div>
-                            <VoteButton />
+                            <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
                         </div>
                     </div>
                 </div>

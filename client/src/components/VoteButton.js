@@ -1,18 +1,7 @@
 import React from "react";
 import './VoteButton.css';
 
-let voteCount = {
-    count: 0,
-}
-
-
-function VoteButton(props) {    
-    function handleClick(event) {
-        event.preventDefault();
-        props.addVoteCb2(voteCount);
-        console.log("someone vote yes")
-    }
-
+export default function VoteButton(props) {
   return (
     <div className="voteButton">
         Voting count
@@ -20,8 +9,7 @@ function VoteButton(props) {
         <button   
             type="button" 
             className="btn btn-warning" 
-            name="voteInc" 
-            onClick={handleClick}
+            onClick={props.clickCb}
             >
             Count on me
             </button> 
@@ -29,4 +17,3 @@ function VoteButton(props) {
   )
 }
 
-export default VoteButton;
