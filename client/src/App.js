@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import AddFormEvent from "./components/AddFormEvent";
 import Dashboard from "./components/Dashboard";
+import Local from "./helpers/Local";
 
 function App() {
   let [allEvents, setAllEvents] = useState([]);
