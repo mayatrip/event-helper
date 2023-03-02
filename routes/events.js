@@ -50,7 +50,7 @@ router.post('/', ensureLogin, async function(req, res, next) {
 
 
 // PATCH modified vote count
-router.patch('/:id', async function(req, res, next) {
+router.patch('/:id', ensureLogin, async function(req, res, next) {
   const id = req.params.id;
   const changes = req.body;
   let sql = `
