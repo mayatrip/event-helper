@@ -36,6 +36,9 @@ const handleClick = (id) => {
                         {!e.attending.includes(props.user.username) && <div>
                             <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
                         </div>}
+                        {e.attending.includes(props.user.username) && <div>
+                            You're attending this event!
+                        </div>}
                     </div>
                 </div>
             ))
