@@ -4,27 +4,77 @@ const db = require("../model/helper");
 const { ensureLogin } = require('../middleware/guards');
 
 
+/**
+ * Guards
+ */
+
+async function ensureActivityExists(req, res, next){
+  try {
+    let results = await db(`SELECT * FROM activities WHERE activities_id = ${req.params.id}`);
+    if (results.data.length === 1){
+      res.locals.activity = results.data[0];
+      next();
+    } else {
+      res.status(404).send({ error: 'Event not found' });
+    }
+  } catch(err) {
+    res.status(500).send({ error: err.message });
+  }
+}
+
+/**
+ * Helpers
+ */
+
+async function sendAllActivities(res) {
+  let results = await db(`SELECT * FROM activities`);
+  res.send(results.data);
+}
+
+function joinToJson(results) {
+  let row0 = results.data[0];
+  let users = [];
+  if (row0.userId) {
+    users = results.data.map(row => ({
+      id: row.userId,
+      username: row.username
+    }));
+  }
+  let activity = {
+    id: row0.activitiesId,
+    name: row0.activityName,
+    description: row0.description,
+    location: row0.location,
+    keyInfo_id: row0.keyInfo_id,
+    votes: row0.votes,
+    users
+  };
+  return activity;
+}
+
 /* GET all event (activity) listings. */
 router.get('/', async function(req, res, next) {
   try {
-    let result = await db('SELECT * FROM activities');
-    let event = result.data;
-    res.send(event);
+    sendAllActivities(res);
   }catch (err) {
     res.status(500).send({error: err.message});
   }
 });
 
 /* GET event (activity) listing by ID */
-router.get(`/:id`, ensureLogin, async function (req, res, next) {
-  let id = Number(req.params.id);
+router.get(`/:id`, ensureLogin, ensureActivityExists, async function (req, res, next) {
+  let activity = res.locals.activity;
   try {
-    let result = await db(`SELECT * FROM activities WHERE activities_id = ${id}`);
-    if (result.data.length === 0) {
-      res.status(404).send({error: 'item not found'})
-    } else {
-      res.send(result.data[0])
-    }
+    let sql = `
+    SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
+    FROM activities AS a
+    LEFT JOIN users_activities AS ua ON a.activities_id = ua.activitiesId
+    LEFT JOIN users AS u ON ua.userId = u.id
+    WHERE a.activities_id = ${activity.activities_id}
+    `;
+    let results = await db(sql);
+    activity = joinToJson(results);
+    res.send(activity);
   } catch(err) {
     res.status(500).send({error: err.message})
   }
@@ -54,9 +104,11 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
   const id = req.params.id;
   const changes = req.body;
   let sql = `
-    UPDATE activities SET votes = ${changes.count},
-    attending = "${changes.attending}" 
-    WHERE activities_id = ${id}
+    UPDATE activities SET votes = ${changes.count}
+    WHERE activities_id = ${id};
+
+    INSERT INTO users_activities (userId, activitiesId)
+    VALUES (${changes.userId}, ${changes.activities_id})
   `;
   try {
     await db(sql);

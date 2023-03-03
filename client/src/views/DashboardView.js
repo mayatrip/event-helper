@@ -7,11 +7,7 @@ const handleClick = (id) => {
     console.log(id);
     let selectedEvent = props.allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
-    let newAttending = `${selectedEvent.attending}, ${props.user.username}`;
-    if (newAttending[0] === ","){
-        newAttending = newAttending.slice(2);
-    }
-    let voteObj = {count: newCount, attending: newAttending};
+    let voteObj = {count: newCount, activities_id: id, userId: props.user.id};
     console.log("VOTE OBJ", voteObj, id);
     props.addVoteCb(id, voteObj);
 }
@@ -33,12 +29,12 @@ const handleClick = (id) => {
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
                             </ul>
-                        {!e.attending.includes(props.user.username) && <div>
+                        <div>
                             <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
-                        </div>}
-                        {e.attending.includes(props.user.username) && <div>
-                            You're attending this event!
-                        </div>}
+                        </div>
+                        {/* // {e.attending.includes(props.user.username) && <div>
+                        //     You're attending this event!
+                        // </div>} */}
                     </div>
                 </div>
             ))
