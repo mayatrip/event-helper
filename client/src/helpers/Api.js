@@ -38,6 +38,10 @@ class Api {
         return await this._doFetch(url);
     }
 
+    static async getOneEvent(id){
+        return await this._doFetch(`/events/${id}`);
+    }
+
     //Post event
     static async addEvent(eventObj) {
         return await this._doFetch('/events', 'POST', eventObj);

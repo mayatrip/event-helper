@@ -53,7 +53,7 @@ function joinToJson(results) {
 }
 
 /* GET all event (activity) listings. */
-router.get('/', async function(req, res, next) {
+router.get('/', ensureLogin, async function(req, res, next) {
   try {
     sendAllActivities(res);
   }catch (err) {

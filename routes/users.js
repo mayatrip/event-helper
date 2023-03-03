@@ -27,7 +27,10 @@ async function ensureUserExists(req, res, next){
 
 async function sendAllUsers(res){
     let results = await db(`SELECT * FROM users`);
-    res.send(results.data);
+    let users = results.data;
+    users.forEach(u => delete u.password);
+    users.forEach(u => delete u.id);
+    res.send(users);
 }
 
 function joinToJson(results) {
@@ -64,7 +67,7 @@ router.get('/', async function (req, res, next) {
 })
 
 //Get user by id
-router.get('/:id', ensureUserExists, async function(req, res, next) {
+router.get('/:id', ensureUserExists, ensureSameUser, async function(req, res, next) {
     let user = res.locals.user;
     try {
         let sql = `
