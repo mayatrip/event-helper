@@ -33,6 +33,11 @@ class Api {
         return await this._doFetch('/users');
     }
 
+    // get one user
+    static async getOneUser(id) {
+        return await this._doFetch(`/users/${id}`);
+    }
+
     //General GET (for any URL, like /events)
     static async getContent(url) {
         return await this._doFetch(url);

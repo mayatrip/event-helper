@@ -1,14 +1,30 @@
-import React from 'react';
-import VoteButton from '../components/VoteButton';
+import React, {useState, useEffect} from 'react';
+import Api from '../helpers/Api';
 
 function DashboardView(props) {
+const [attendingEvents, setAttendingEvents] = useState([]);
+
+useEffect(() => {
+    getUserEvents(props.user.id);
+  }, []);
+
+const getUserEvents = async id => {
+    let uresponse = await Api.getOneUser(id);
+    if (uresponse.ok){
+        let userInfo = uresponse.data;
+        let userEvents = userInfo.activities.map(a => a.id);
+        setAttendingEvents(userEvents);
+    } else {
+        console.log(`Error! ${uresponse.error}`);
+    }
+}
 
 const handleClick = (id) => {
-    console.log(id);
     let selectedEvent = props.allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
     let voteObj = {count: newCount, activities_id: id, userId: props.user.id};
-    console.log("VOTE OBJ", voteObj, id);
+    getUserEvents(props.user.id);
+    getUserEvents(props.user.id);
     props.addVoteCb(id, voteObj);
 }
 
@@ -29,12 +45,12 @@ const handleClick = (id) => {
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
                             </ul>
-                        <div>
+                        {!attendingEvents.includes(e.activities_id) && <div>
                             <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
-                        </div>
-                        {/* // {e.attending.includes(props.user.username) && <div>
-                        //     You're attending this event!
-                        // </div>} */}
+                        </div>}
+                        {attendingEvents.includes(e.activities_id) && <div>
+                            You're attending this event!
+                        </div>}
                     </div>
                 </div>
             ))
