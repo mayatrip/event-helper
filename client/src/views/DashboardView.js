@@ -7,7 +7,10 @@ const handleClick = (id) => {
     console.log(id);
     let selectedEvent = props.allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
-    let newAttending = selectedEvent.attending + props.user.username;
+    let newAttending = `${selectedEvent.attending}, ${props.user.username}`;
+    if (newAttending[0] === ","){
+        newAttending = newAttending.slice(2);
+    }
     let voteObj = {count: newCount, attending: newAttending};
     console.log("VOTE OBJ", voteObj, id);
     props.addVoteCb(id, voteObj);
@@ -15,6 +18,7 @@ const handleClick = (id) => {
 
   return (
     <div className='DashboardView'>
+
         {
             props.allEvents.map(e => (
                 <div key={e.activities_id}>
