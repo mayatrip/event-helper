@@ -33,9 +33,9 @@ const handleClick = (id) => {
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
                             </ul>
-                        <div>
+                        {!e.attending.includes(props.user.username) && <div>
                             <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             ))
