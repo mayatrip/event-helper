@@ -80,19 +80,27 @@ router.get(`/:id`, ensureLogin, ensureActivityExists, async function (req, res, 
   }
 });
 
+
+// INSERT INTO activities (activityName, description, price, location, keyInfo_id)
+//     VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newEvent.keyInfo_id});
 /* POST a new event (keyInfo) and associated activities */
 router.post('/', ensureLogin, async function(req, res, next) {
   let newEvent = req.body;
   let sql = `
-    INSERT INTO activities (activityName, description, price, location, keyInfo_id)
-    VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newEvent.keyInfo_id});
     INSERT INTO keyInfo (date, title, deadline)
-    VALUES ("${newEvent.date}", "${newEvent.title}", "${newEvent.deadline}")
+    VALUES ("${newEvent.date}", "${newEvent.title}", "${newEvent.deadline}");
+    SELECT LAST_INSERT_ID();
   `;
   try {
-    await db(sql);
-    let result = await db(`SELECT * FROM activities`);
-    res.status(201).send(result.data)
+    let results = await db(sql);
+    let newKeyInfo_id = results.data[0].insertId;
+    let sql2 = `
+    INSERT INTO activities (activityName, description, price, location, keyInfo_id)
+    VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newKeyInfo_id});
+    `;
+    await db(sql2);
+    let results2 = await db(`SELECT * FROM activities`);
+    res.status(201).send(results2.data)
   } catch(err) {
     res.status(500).send({error: err.message})
   }
