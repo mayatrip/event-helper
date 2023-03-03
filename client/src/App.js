@@ -10,12 +10,14 @@ import AddFormEvent from "./components/AddFormEvent";
 import DashboardView from "./views/DashboardView";
 import LoginView from "./views/LoginView";
 import AddEventView from "./views/AddEventView";
+import RegisterView from "./views/RegisterView";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
   const[allEvents, setAllEvents] = useState([]);
+  const [visibleAlert, setAlertVisible] = useState(false);
 
   useEffect(() => {
     if(user) {
@@ -23,6 +25,12 @@ function App() {
     }
   }, []);
 
+  const handleVisible = () => {
+    setAlertVisible(true)
+    setTimeout(() => {
+        setAlertVisible(false)
+    }, 2000);
+  }
 
   async function doLogin(username, password) {
     let uresponse = await Api.loginUser(username, password);
@@ -33,7 +41,7 @@ function App() {
       navigate('/dashboard');
     } else {
       setLoginErrorMsg('Login failed');
-    }
+    } 
   }
 
   async function doLogout(){
@@ -41,6 +49,18 @@ function App() {
     setUser(null);
     navigate('/');
   }
+
+  async function registerUser(username, password){
+    let uresponse = await Api.registerUser(username, password);
+    if (uresponse.ok){
+      handleVisible();
+      setLoginErrorMsg('');
+      navigate('/dashboard');
+      handleVisible();
+    } else {
+      setLoginErrorMsg('Registration failed');
+  }
+}
 
   async function getEvents() {
     let uresponse = await Api.getContent('/events');
@@ -73,13 +93,16 @@ function App() {
         <Link to="/dashboard">All Events</Link>
         <Link to="/add-event">Add Events</Link>
         {user && <Link to="/" onClick={doLogout}>Logout</Link>}
+        {!user && <Link to="/login">Login</Link>}
+        {!user && <Link to="/register">Create an Account</Link>}
       </nav>
 
       <div>
-        {/* for this to work, remember to import { Routes, Route} */}
+        {visibleAlert && <h1>Account created, please login</h1>}
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
+          <Route path="/register" element={<RegisterView registerUserCb={(username, password) => registerUser(username, password)}/>} />
           <Route path="/dashboard" element={
             <PrivateRoute>
               <DashboardView allEvents={allEvents} user={user} addVoteCb={(id, voteObj) => addVote(id, voteObj)}/>

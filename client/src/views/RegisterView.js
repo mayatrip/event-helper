@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function LoginView(props) {
+export default function RegisterView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,12 +19,13 @@ export default function LoginView(props) {
     }
 
     const handleSubmit = (event) => {
-        props.doLoginCb(username, password)
+        event.preventDefault();
+        props.registerUserCb(username, password)
     }
   return (
-    <div className="LoginView" onSubmit={handleSubmit}>
+    <div className="RegisterView" onSubmit={handleSubmit}>
         <form>
-            <label>Username:
+            <label>Choose a Username:
                 <input
                 type = "text"
                 name = "usernameInput"
@@ -33,7 +34,7 @@ export default function LoginView(props) {
                 onChange = {handleChange}
                 />
             </label>
-            <label>Password:
+            <label>Choose a Password:
                 <input
                 type = "text"
                 name = "passwordInput"
