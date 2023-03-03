@@ -46,7 +46,7 @@ const handleClick = (id) => {
                             <li>Price/person £{e.price}</li>
                             </ul>
                         {!attendingEvents.includes(e.activities_id) && <div>
-                            <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
+                            <button type="button" className="btn btn-warning" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
                         </div>}
                         {attendingEvents.includes(e.activities_id) && <div>
                             You're attending this event!
