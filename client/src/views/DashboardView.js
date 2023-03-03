@@ -3,9 +3,11 @@ import Api from '../helpers/Api';
 
 function DashboardView(props) {
 const [attendingEvents, setAttendingEvents] = useState([]);
+const [allKeyInfo, setKeyInfo] = useState([]);
 
 useEffect(() => {
     getUserEvents(props.user.id);
+    getKeyInfo();
   }, []);
 
 const getUserEvents = async id => {
@@ -19,6 +21,15 @@ const getUserEvents = async id => {
     }
 }
 
+async function getKeyInfo() {
+    let uresponse = await Api.getContent('/keyInfo');
+    if (uresponse.ok){
+      setKeyInfo(uresponse.data);
+    } else{
+      console.log(`Error! ${uresponse.error}`);
+    }
+  }
+
 const handleClick = (id) => {
     let selectedEvent = props.allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
@@ -31,13 +42,13 @@ const handleClick = (id) => {
   return (
     <div className='DashboardView'>
 
-        {
+        {   
             props.allEvents.map(e => (
                 <div key={e.activities_id}>
                     <div className='subGrid'>
                         <h2>To remember</h2>
-                            <p>Save the date for title on date</p>
-                            <p>Answer before </p>
+                            <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date}</p>
+                            <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline}</p>
                         <h2>Activity Info</h2>
                             <ul>
                             <li>{e.activityName}</li>

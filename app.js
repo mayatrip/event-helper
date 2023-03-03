@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var eventRouter = require('./routes/events');
 var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
+var keyInfoRouter = require('./routes/keyInfo');
 
 const cors = require('cors');  // add at the top
 
@@ -23,7 +24,8 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/', authRouter); 
 app.use('/events', eventRouter);
-app.use('/users', usersRouter)
+app.use('/users', usersRouter);
+app.use('/keyInfo', keyInfoRouter)
 
 
 
