@@ -4,14 +4,37 @@ import Api from '../helpers/Api';
 function DashboardView(props) {
 const[allEvents, setAllEvents] = useState([]);
 const [allKeyInfo, setKeyInfo] = useState([]);
+const [attendingEvents, setAttendingEvents] = useState([]);
 
 
 useEffect(() => {
     if(props.user) {
       getEvents();
+    }
+  }, []);
+
+  useEffect(() => {
+    if(props.user) {
       getKeyInfo();
     }
   }, []);
+
+  useEffect(() => {
+    if(props.user) {
+      getUserEvents(props.user.id);
+    }
+  }, [attendingEvents]);
+
+  const getUserEvents = async id => {
+    let uresponse = await Api.getOneUser(id);
+    if (uresponse.ok){
+        let userInfo = uresponse.data;
+        let userEvents = userInfo.activities.map(a => a.id);
+        setAttendingEvents(userEvents);
+    } else {
+        console.log(`Error! ${uresponse.error}`);
+    }
+}
 
 async function getEvents() {
     let uresponse = await Api.getContent('/events');
@@ -35,9 +58,9 @@ const handleClick = (id) => {
     console.log(id);
     let selectedEvent = allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
-    let newAttending = selectedEvent.attending + props.user.username;
-    let voteObj = {count: newCount, attending: newAttending};
-    console.log("VOTE OBJ", voteObj, id);
+    let voteObj = {count: newCount, activities_id: id, userId: props.user.id};
+    getEvents();
+    getUserEvents(props.user.id);
     props.addVoteCb(id, voteObj);
 }
 
@@ -58,9 +81,13 @@ const handleClick = (id) => {
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
                             </ul>
+                        {!attendingEvents.includes(e.activities_id) &&
                         <div>
                             <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
-                        </div>
+                        </div>}
+                        {attendingEvents.includes(e.activities_id) && <div>
+                            You're attending this event!
+                        </div>}
                     </div>
                 </div>
             ))
