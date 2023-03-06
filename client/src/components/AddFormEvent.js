@@ -36,10 +36,8 @@ function AddFormEvent(props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(activityOne)
         addEvent(activityOne);
         if (activityTwo.activityName){
-            console.log(activityTwo);
             addEvent(activityTwo);
         }
         setFormData(INIT_STATE);
