@@ -50,6 +50,7 @@ function joinAllToJson(results){
         location: obj.location,
         keyInfo_id: obj.keyInfo_id,
         votes: obj.votes,
+        price: obj.price,
         users
       }
       allActivities.push(activity)
@@ -62,6 +63,7 @@ function joinAllToJson(results){
         location: obj.location,
         keyInfo_id: obj.keyInfo_id,
         votes: obj.votes,
+        price: obj.price,
         users: []
       }
       allActivities.push(activity)
