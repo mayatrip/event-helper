@@ -96,9 +96,16 @@ router.post('/', ensureLogin, async function(req, res, next) {
     let results = await db(sql);
     let newKeyInfo_id = results.data[0].insertId;
     let sql2 = `
-    INSERT INTO activities (activityName, description, price, location, keyInfo_id)
-    VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newKeyInfo_id});
-    `;
+      INSERT INTO activities (activityName, description, price, location, keyInfo_id)
+      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newKeyInfo_id});
+      `;
+    if (newEvent.duplicate === true){
+      sql2 = `
+      INSERT INTO activities (activityName, description, price, location, keyInfo_id)
+      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${(newKeyInfo_id - 1)});
+      DELETE FROM keyInfo WHERE keyInfo_id = ${newKeyInfo_id}
+      `;
+    };
     await db(sql2);
     let results2 = await db(`SELECT * FROM activities`);
     res.status(201).send(results2.data)
