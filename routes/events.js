@@ -31,6 +31,34 @@ async function sendAllActivities(res) {
   res.send(results.data);
 }
 
+function joinAllToJson(results){
+  let users = [];
+  let activitiesVisited = [];
+  let allActivities = [];
+  console.log(allActivities)
+  for (obj of results) {
+    if (obj.userId && !(activitiesVisited.includes(obj.activities_id))){
+      let events = results.filter(x => x.activities_id === obj.activities_id);
+      users = events.map(row => ({
+        id: row.userId,
+        username: row.username
+      }));
+      let activity = {
+        id: obj.activitiesId,
+        name: obj.activityName,
+        description: obj.description,
+        location: obj.location,
+        keyInfo_id: obj.keyInfo_id,
+        votes: obj.votes,
+        users
+      }
+      allActivities.push(activity)
+      activitiesVisited.push(obj.activities_id);
+    }
+  }
+  return allActivities;
+}
+
 function joinToJson(results) {
   let row0 = results.data[0];
   let users = [];
@@ -55,7 +83,15 @@ function joinToJson(results) {
 /* GET all event (activity) listings. */
 router.get('/', async function(req, res, next) {
   try {
-    sendAllActivities(res);
+    let sql = `
+    SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
+    FROM activities AS a
+    LEFT JOIN users_activities AS ua ON a.activities_id = ua.activitiesId
+    LEFT JOIN users AS u ON ua.userId = u.id
+    `;
+    let results = await db(sql);
+    activities = joinAllToJson(results.data);
+    res.send(activities);
   }catch (err) {
     res.status(500).send({error: err.message});
   }
