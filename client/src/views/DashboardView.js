@@ -23,7 +23,7 @@ useEffect(() => {
     if(props.user) {
       getUserEvents(props.user.id);
     }
-  }, [attendingEvents]);
+  }, []);
 
   const getUserEvents = async id => {
     let uresponse = await Api.getOneUser(id);
@@ -76,7 +76,7 @@ const handleClick = (id) => {
                             <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline : ""}</p>
                         <h2>Activity Info</h2>
                             <ul>
-                            <li>{e.activityName}</li>
+                            <li>{e.name}</li>
                             <li>{e.description}</li>
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
@@ -88,6 +88,29 @@ const handleClick = (id) => {
                         {attendingEvents.includes(e.activities_id) && <div>
                             You're attending this event!
                         </div>}
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Who is coming?
+                                </button>
+                                </h2>
+                                <div id={"collapseTwo"} class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                {(e.users.length > 0) && <ul>
+                                    {e.users.map(u => (
+                                        <li key={u.id}>
+                                            {u.username}
+                                        </li>
+                                    ))}
+                                    </ul> 
+                                }
+                                {e.users.length === 0 && <p>No attendees yet</p>
+                                }
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                     </div>
                 </div>
             ))
