@@ -19,6 +19,7 @@ export default function LoginView(props) {
     }
 
     const handleSubmit = (event) => {
+        event.preventDefault();
         props.doLoginCb(username, password)
     }
   return (
