@@ -21,10 +21,10 @@ function App() {
   const [allKeyInfo, setKeyInfo] = useState([]);
 
   useEffect(() => {
-    // if(user) {
+    if(user) {
       getEvents();
       getKeyInfo();
-    // }
+    }
   }, []);
 
   const handleVisible = () => {
@@ -36,16 +36,12 @@ function App() {
 
   async function doLogin(username, password) {
     let uresponse = await Api.loginUser(username, password);
-    console.log(username, password);
-    console.log(uresponse.data);
     if (uresponse.ok){
-      console.log(uresponse.data)
       Local.saveUserInfo(uresponse.data.token, uresponse.data.user);
       setUser(uresponse.data.user);
       setLoginErrorMsg('');
       navigate('/dashboard');
     } else {
-      console.log(`Login failed`);
       setLoginErrorMsg('Login failed');
     } 
   }
@@ -119,14 +115,14 @@ function App() {
           <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/register" element={<RegisterView registerUserCb={(username, password) => registerUser(username, password)}/>} />
           <Route path="/dashboard" element={
-            // <PrivateRoute>
+            <PrivateRoute>
               <DashboardView allKeyInfo={allKeyInfo} allEvents={allEvents} user={user} addVoteCb={(id, voteObj) => addVote(id, voteObj)}/>
-            /* </PrivateRoute> */
+            </PrivateRoute>
           } />
           <Route path="/add-event" element={
-            // <PrivateRoute>
+            <PrivateRoute>
               <AddEventView/>
-            // </PrivateRoute>
+            </PrivateRoute>
           } />
         </Routes>
   
