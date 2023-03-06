@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import './AddFormEvent.css';
-import Api from "../helpers/Api";
 
 const INIT_STATE = {
     date: '',
@@ -21,51 +20,22 @@ const INIT_STATE = {
 
 
 function AddFormEvent(props) {
-    const [formData, setFormData] = useState(INIT_STATE);
-    const [activityOne, setActivityOne] = useState([]);
-    const [activityTwo, setActivityTwo] = useState([]);
+    const [formData, setFormData] = useState(INIT_STATE)
 
-    async function addEvent(eventObj){
-        let uresponse = await Api.addEvent(eventObj);
-        if (uresponse.ok){
-            console.log('success');
-        } else {
-            console.log(`Error! ${uresponse.error}`);
-        }
-    }
 
     function handleSubmit(event) {
         event.preventDefault();
-        addEvent(activityOne);
-        addEvent(activityTwo);
+        props.addEventFormCb(formData);
         setFormData(INIT_STATE);
         console.log("something has been submitted for real")
     }
 
     function handleChange(event) {
         let {name, value} = event.target;
-        setFormData (data => ({...data, [name]: value,
+        setFormData (data => ({
+                ...data,
+                [name]: value,
         }));
-        let actOne = {
-            date: formData.date,
-            title: formData.title,
-            deadline: formData.deadline,
-            activityName: formData.activityNameOne,
-            description: formData.descriptionOne,
-            price: formData.priceOne,
-            location: formData.locationOne
-        };
-        let actTwo = {
-            date: formData.date,
-            title: formData.title,
-            deadline: formData.deadline,
-            activityName: formData.activityNameTwo,
-            description: formData.descriptionTwo,
-            price: formData.priceTwo,
-            location: formData.locationTwo
-        };
-        setActivityOne(actOne);
-        setActivityTwo(actTwo);
     }
 
     return (

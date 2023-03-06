@@ -53,9 +53,10 @@ function joinToJson(results) {
 }
 
 /* GET all event (activity) listings. */
-router.get('/', ensureLogin, async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   try {
-    sendAllActivities(res);
+    let results = await db(`SELECT * FROM activities`);
+    res.send(results.data);
   }catch (err) {
     res.status(500).send({error: err.message});
   }

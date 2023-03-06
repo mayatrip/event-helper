@@ -1,54 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import Api from '../helpers/Api';
+import React from 'react';
 
 function DashboardView(props) {
-const [attendingEvents, setAttendingEvents] = useState([]);
-const [allKeyInfo, setKeyInfo] = useState([]);
-
-useEffect(() => {
-    getUserEvents(props.user.id);
-    getKeyInfo();
-  }, []);
-
-const getUserEvents = async id => {
-    let uresponse = await Api.getOneUser(id);
-    if (uresponse.ok){
-        let userInfo = uresponse.data;
-        let userEvents = userInfo.activities.map(a => a.id);
-        setAttendingEvents(userEvents);
-    } else {
-        console.log(`Error! ${uresponse.error}`);
-    }
-}
-
-async function getKeyInfo() {
-    let uresponse = await Api.getContent('/keyInfo');
-    if (uresponse.ok){
-      setKeyInfo(uresponse.data);
-    } else{
-      console.log(`Error! ${uresponse.error}`);
-    }
-  }
 
 const handleClick = (id) => {
+    console.log(id);
     let selectedEvent = props.allEvents.find(i => i.activities_id === id);
     let newCount = selectedEvent.votes + 1;
-    let voteObj = {count: newCount, activities_id: id, userId: props.user.id};
-    getUserEvents(props.user.id);
-    getUserEvents(props.user.id);
+    let newAttending = selectedEvent.attending + props.user.username;
+    let voteObj = {count: newCount, attending: newAttending};
+    console.log("VOTE OBJ", voteObj, id);
     props.addVoteCb(id, voteObj);
 }
 
   return (
     <div className='DashboardView'>
-
-        {   
+        <h1>Dashboard</h1>
+        {
             props.allEvents.map(e => (
                 <div key={e.activities_id}>
                     <div className='subGrid'>
                         <h2>To remember</h2>
-                            <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date}</p>
-                            <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline}</p>
+                            <p>Save the date for title on date</p>
+                            <p>Answer before </p>
                         <h2>Activity Info</h2>
                             <ul>
                             <li>{e.activityName}</li>
@@ -56,12 +29,9 @@ const handleClick = (id) => {
                             <li>{e.location}</li>
                             <li>Price/person £{e.price}</li>
                             </ul>
-                        {!attendingEvents.includes(e.activities_id) && <div>
-                            <button type="button" className="btn btn-warning" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
-                        </div>}
-                        {attendingEvents.includes(e.activities_id) && <div>
-                            You're attending this event!
-                        </div>}
+                        <div>
+                            <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
+                        </div>
                     </div>
                 </div>
             ))
