@@ -54,6 +54,18 @@ function joinAllToJson(results){
       }
       allActivities.push(activity)
       activitiesVisited.push(obj.activities_id);
+    } else if (!(activitiesVisited.includes(obj.activities_id))){
+      let activity = {
+        id: obj.activitiesId,
+        name: obj.activityName,
+        description: obj.description,
+        location: obj.location,
+        keyInfo_id: obj.keyInfo_id,
+        votes: obj.votes,
+        users: []
+      }
+      allActivities.push(activity)
+      activitiesVisited.push(obj.activities_id);
     }
   }
   return allActivities;
