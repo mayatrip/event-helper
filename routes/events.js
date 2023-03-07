@@ -186,4 +186,27 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
   }
 });
 
+router.delete('/:id', async function(req, res, next) {
+  let id = req.params.id;
+  try {
+    let result = await db(`SELECT * FROM activities WHERE activities_id = ${id}`);
+    let relatedKeyInfo = result.data[0].keyInfo_id;
+    console.log(relatedKeyInfo);
+    if (result.data.length === 0){
+      res.status(404).send({error: 'item not found'});
+    } else {
+      await db(`DELETE FROM activities WHERE activities_id = ${id}`);
+      let keyInfoCheck = await db(`SELECT * FROM activities WHERE keyInfo_id = ${relatedKeyInfo}`);
+      if (keyInfoCheck.data.length === 0){
+        let sql = (`DELETE FROM keyInfo WHERE keyInfo_id = ${relatedKeyInfo}`);
+        await db(sql);
+      }
+      let result = await db(`SELECT * FROM activities`);
+      res.send(result.data)
+    }
+  } catch(err) {
+    res.status(500).send({error: err.message})
+  }
+})
+
 module.exports = router;
