@@ -57,7 +57,6 @@ class Api {
         return await this._doFetch(`/events/${id}`, 'PATCH', voteObj);
     }
 
-    //Delete event (ALSO DELETES RELATED KEY INFO IF IT'S THE LAST ACTIVITY WITH THAT KEY INFO)
     static async deleteEvent(id){
         return await this._doFetch(`/events/${id}`, 'DELETE');
     }

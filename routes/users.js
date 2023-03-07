@@ -79,8 +79,9 @@ router.get('/:id', ensureUserExists, ensureSameUser, async function(req, res, ne
         `;
         let results = await db(sql);
         user = joinToJson(results);
-
-        res.send(user);
+        let activitiesIdArr = user.activities.map(i => i.id)
+        res.send(activitiesIdArr);
+        // res.send(user)
     } catch(err) {
         res.status(500).send({ error: err.message });
     }

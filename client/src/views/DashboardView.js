@@ -4,62 +4,70 @@ import Api from '../helpers/Api';
 function DashboardView(props) {
 const[allEvents, setAllEvents] = useState([]);
 const [allKeyInfo, setKeyInfo] = useState([]);
-const [attendingEvents, setAttendingEvents] = useState([]);
+const [userActivities, setUserActivities] = useState([]);
+const [count, setCount] = useState(0);
 
 
 useEffect(() => {
-    if(props.user) {
-      getEvents();
-    }
-  }, []);
+  if(props.user) {
+    getEvents();
+  }
+}, []);
 
-  useEffect(() => {
-    if(props.user) {
-      getKeyInfo();
-    }
-  }, []);
+useEffect(() => {
+  if(props.user) {
+    getKeyInfo();
+  }
+}, []);
 
-  useEffect(() => {
-      getUserEvents(props.user.id);
-  }, [props.user.activities]);
+useEffect(() => {
+    getOneUser(props.user.id);
+}, [count]);
 
-  const getUserEvents = async id => {
-    let uresponse = await Api.getOneUser(id);
-    if (uresponse.ok){
-        let userInfo = uresponse.data;
-        let userEvents = userInfo.activities.map(a => a.id);
-        setAttendingEvents(userEvents);
-    } else {
-        console.log(`Error! ${uresponse.error}`);
-    }
+const getOneUser = async id => {
+  let uresponse = await Api.getOneUser(id);
+  if (uresponse.ok){
+      setUserActivities(uresponse.data);
+  } else {
+      console.log(`Error! ${uresponse.error}`);
+  }
 }
 
 async function getEvents() {
-    let uresponse = await Api.getContent('/events');
-    if (uresponse.ok){
-      setAllEvents(uresponse.data);
-    } else{
-      console.log(`Error! ${uresponse.error}`);
-    }
+  let uresponse = await Api.getContent('/events');
+  if (uresponse.ok){
+    setAllEvents(uresponse.data);
+  } else{
+    console.log(`Error! ${uresponse.error}`);
   }
+}
 
-  async function getKeyInfo() {
-    let uresponse = await Api.getContent('/keyInfo');
-    if (uresponse.ok){
-      setKeyInfo(uresponse.data);
-    } else{
-      console.log(`Error! ${uresponse.error}`);
-    }
+async function getKeyInfo() {
+  let uresponse = await Api.getContent('/keyInfo');
+  if (uresponse.ok){
+    setKeyInfo(uresponse.data);
+  } else{
+    console.log(`Error! ${uresponse.error}`);
   }
+}
 
 const handleClick = (id) => {
-    console.log(id);
-    let selectedEvent = allEvents.find(i => i.id === id);
-    let newCount = selectedEvent.votes + 1;
-    let voteObj = {count: newCount, id: id, userId: props.user.id};
-    getEvents();
-    getUserEvents(props.user.id);
-    props.addVoteCb(id, voteObj);
+  console.log(id);
+  let selectedEvent = allEvents.find(i => i.id === id);
+  let newCount = selectedEvent.votes + 1;
+  let voteObj = {count: newCount, id: id, userId: props.user.id};
+  getEvents();
+  setCount((count) => (count + 1));
+  props.addVoteCb(id, voteObj);
+}
+
+const deleteEvent = async id => {
+  let uresponse = await Api.deleteEvent(id);
+  if (uresponse.ok) {
+    setAllEvents(uresponse.data);
+  } else {
+    console.log(`Error! ${uresponse.error}`)
+  }
 }
 
   return (
@@ -69,7 +77,7 @@ const handleClick = (id) => {
                 <div key={e.id}>
                     <div className='subGrid'>
                       <div className="delete-button-container">
-                      {e.author_id === props.user.id && <button>X</button>}
+                      {e.author_id === props.user.id && <button type="button" onClick={event => deleteEvent(e.id)}>X</button>}
                       </div>
                         <h2>To remember </h2>
                             <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
@@ -82,11 +90,11 @@ const handleClick = (id) => {
                           <li>{e.location}</li>
                           <li>Price/person £{e.price}</li>
                         </ul>
-                        {!attendingEvents.includes(e.id) &&
+                        {!userActivities.includes(e.id) &&
                         <div>
                             <button type="button" onClick={event => handleClick(e.id)}>Count on Me</button>
                         </div>}
-                        {attendingEvents.includes(e.id) && <div>
+                        {userActivities.includes(e.id) && <div>
                             You're attending this event!
                         </div>}
                         <div className="accordion" id="accordionExample">

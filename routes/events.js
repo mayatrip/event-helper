@@ -158,8 +158,15 @@ router.post('/', ensureLogin, async function(req, res, next) {
       `;
     };
     await db(sql2);
-    let results2 = await db(`SELECT * FROM activities`);
-    res.status(201).send(results2.data)
+    let sql3 = `
+    SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
+    FROM activities AS a
+    LEFT JOIN users_activities AS ua ON a.activities_id = ua.activitiesId
+    LEFT JOIN users AS u ON ua.userId = u.id
+    `;
+    let results2 = await db(sql3);
+    activities = joinAllToJson(results2.data);
+    res.send(activities);
   } catch(err) {
     res.status(500).send({error: err.message})
   }
@@ -179,8 +186,15 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
   `;
   try {
     await db(sql);
-    let result = await db(`SELECT * FROM activities`);
-    res.send(result.data)
+    let sql2 = `
+    SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
+    FROM activities AS a
+    LEFT JOIN users_activities AS ua ON a.activities_id = ua.activitiesId
+    LEFT JOIN users AS u ON ua.userId = u.id
+    `;
+    let result = await db(sql2);
+    activities = joinAllToJson(result.data);
+    res.send(activities);
   } catch(err) {
     res.status(500).send({error: err.message})
   }
@@ -201,8 +215,15 @@ router.delete('/:id', async function(req, res, next) {
         let sql = (`DELETE FROM keyInfo WHERE keyInfo_id = ${relatedKeyInfo}`);
         await db(sql);
       }
-      let result = await db(`SELECT * FROM activities`);
-      res.send(result.data)
+      let sql = `
+      SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
+      FROM activities AS a
+      LEFT JOIN users_activities AS ua ON a.activities_id = ua.activitiesId
+      LEFT JOIN users AS u ON ua.userId = u.id
+      `;
+      let results = await db(sql);
+      activities = joinAllToJson(results.data);
+      res.send(activities);
     }
   } catch(err) {
     res.status(500).send({error: err.message})
