@@ -51,6 +51,7 @@ function joinAllToJson(results){
         keyInfo_id: obj.keyInfo_id,
         votes: obj.votes,
         price: obj.price,
+        author_id: obj.user_id,
         users
       }
       allActivities.push(activity)
