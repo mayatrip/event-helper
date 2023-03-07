@@ -127,7 +127,7 @@ function App() {
           } />
           <Route path="/add-event" element={
             <PrivateRoute>
-              <AddEventView/>
+              <AddEventView user={user}/>
             </PrivateRoute>
           } />
         </Routes>

@@ -145,13 +145,13 @@ router.post('/', ensureLogin, async function(req, res, next) {
     let results = await db(sql);
     let newKeyInfo_id = results.data[0].insertId;
     let sql2 = `
-      INSERT INTO activities (activityName, description, price, location, keyInfo_id)
-      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newKeyInfo_id});
+      INSERT INTO activities (activityName, description, price, location, keyInfo_id, user_id)
+      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${newKeyInfo_id}, ${newEvent.user});
       `;
     if (newEvent.duplicate === true){
       sql2 = `
-      INSERT INTO activities (activityName, description, price, location, keyInfo_id)
-      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${(newKeyInfo_id - 1)});
+      INSERT INTO activities (activityName, description, price, location, keyInfo_id, user_id)
+      VALUES ("${newEvent.activityName}", "${newEvent.description}", ${newEvent.price}, "${newEvent.location}", ${(newKeyInfo_id - 1)}, ${newEvent.user});
       DELETE FROM keyInfo WHERE keyInfo_id = ${newKeyInfo_id}
       `;
     };

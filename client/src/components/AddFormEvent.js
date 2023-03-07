@@ -53,7 +53,8 @@ function AddFormEvent(props) {
             activityName: formData.activityNameOne,
             description: formData.descriptionOne,
             price: formData.priceOne,
-            location: formData.locationOne
+            location: formData.locationOne,
+            user: props.user.id
         };
         let actTwo = {
             date: formData.date,
@@ -63,6 +64,7 @@ function AddFormEvent(props) {
             description: formData.descriptionTwo,
             price: formData.priceTwo,
             location: formData.locationTwo,
+            user: props.user.id,
             duplicate: true
         };
         setActivityOne(actOne);
