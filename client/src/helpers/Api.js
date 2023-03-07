@@ -52,8 +52,14 @@ class Api {
         return await this._doFetch('/events', 'POST', eventObj);
     }
 
+    //Patch to add vote
     static async addVote(id, voteObj){
         return await this._doFetch(`/events/${id}`, 'PATCH', voteObj);
+    }
+
+    //Delete event (ALSO DELETES RELATED KEY INFO IF IT'S THE LAST ACTIVITY WITH THAT KEY INFO)
+    static async addVote(id){
+        return await this._doFetch(`/events/${id}`, 'DELETE');
     }
 
 
