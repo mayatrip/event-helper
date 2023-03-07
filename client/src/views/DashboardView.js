@@ -68,42 +68,42 @@ const handleClick = (id) => {
     <div className='DashboardView'>
         {
             allEvents.map(e => (
-                <div key={e.activities_id}>
+                <div key={e.id}>
                     <div className='subGrid'>
-                        <h2>To remember</h2>
+                        <h2>To remember </h2>
                             <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
                             </p>
                             <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline : ""}</p>
                         <h2>Activity Info</h2>
-                            <ul>
-                            <li>{e.name}</li>
-                            <li>{e.description}</li>
-                            <li>{e.location}</li>
-                            <li>Price/person £{e.price}</li>
-                            </ul>
-                        {!attendingEvents.includes(e.activities_id) &&
+                        <ul>
+                          <li>{e.name}</li>
+                          <li>{e.description}</li>
+                          <li>{e.location}</li>
+                          <li>Price/person £{e.price}</li>
+                        </ul>
+                        {!attendingEvents.includes(e.id) &&
                         <div>
-                            <button type="button" onClick={event => handleClick(e.activities_id)}>Count on Me</button>
+                            <button type="button" onClick={event => handleClick(e.id)}>Count on Me</button>
                         </div>}
-                        {attendingEvents.includes(e.activities_id) && <div>
+                        {attendingEvents.includes(e.id) && <div>
                             You're attending this event!
                         </div>}
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <div className="accordion" id="accordionExample">
+                            <div className="accordion-item">
+                                <h2 className="accordion-header" id="headingTwo">
+                                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     Who is coming?
                                 </button>
                                 </h2>
-                                <div id={"collapseTwo"} class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
+                                <div id={"collapseTwo"} className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div className="accordion-body">
                                 {(e.users.length > 0) && <ul>
-                                    {e.users.map(u => (
-                                        <li key={u.id}>
-                                            {u.username}
-                                        </li>
+                                  {e.users.map(u => (
+                                      <li key={u.id}>
+                                          {u.username}, {u.id}
+                                      </li>
                                     ))}
-                                    </ul> 
+                                </ul> 
                                 }
                                 {e.users.length === 0 && <p>No attendees yet</p>
                                 }
