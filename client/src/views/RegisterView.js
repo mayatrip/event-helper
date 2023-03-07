@@ -49,7 +49,7 @@ export default function RegisterView(props) {
             </label>
             <button type="submit">Submit</button>
         </form>
-        {props.loginErrorMsg && <h1>{props.loginErrorMsg}</h1>}
+        {props.loginErrorMsg && <h2>{props.loginErrorMsg}</h2>}
     </div>
   )
 }
