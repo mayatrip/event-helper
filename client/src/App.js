@@ -31,7 +31,7 @@ function App() {
     setAlertVisible(true)
     setTimeout(() => {
         setAlertVisible(false)
-    }, 2000);
+    }, 4000);
   }
 
   const resetError = () => {
@@ -111,16 +111,20 @@ function App() {
         <div className="right">
           {user && <Link to="/" onClick={doLogout}>Logout</Link>}
           {!user && <Link to="/login">Login</Link>}
-          {!user && <Link to="/register">Create an Account</Link>}
+          {!user && <Link to="/register">Create Account</Link>}
         </div>
       </nav>
 
       <div>
-        {visibleAlert && <h1>Account created, please login</h1>}
+      {visibleAlert && 
+            <div className="alert alert-primary">
+                  <h2>Account created, please log in</h2>    
+            </div>}
         <Routes>
           <Route path="/" element={<HomeView />} />
           <Route path="/login" element={<LoginView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/register" element={<RegisterView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} registerUserCb={(username, password) => registerUser(username, password)}/>} />
+
           <Route path="/dashboard" element={
             <PrivateRoute>
               <DashboardView allKeyInfo={allKeyInfo} allEvents={allEvents} user={user} addVoteCb={(id, voteObj) => addVote(id, voteObj)}/>

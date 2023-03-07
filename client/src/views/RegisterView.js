@@ -47,9 +47,14 @@ export default function RegisterView(props) {
                 onChange = {handleChange}
                 />
             </label>
-            <button type="submit">Submit</button>
+            <div className="span-2-cols">
+                <button className="btn btn-warning" type="submit">Submit</button>
+            </div>
         </form>
-        {props.loginErrorMsg && <h2>{props.loginErrorMsg}</h2>}
+        {props.loginErrorMsg && 
+            <div className="alert alert-warning">
+                <h2>{props.loginErrorMsg}</h2>    
+            </div>}
     </div>
   )
 }

@@ -77,11 +77,13 @@ const deleteEvent = async id => {
                 <div key={e.id}>
                     <div className='subGrid'>
                       <div className="delete-button-container">
-                      {e.author_id === props.user.id && <button type="button" onClick={event => deleteEvent(e.id)}>X</button>}
+                      {e.author_id === props.user.id && <button type="button" className="btn btn-warning delete-button" onClick={event => deleteEvent(e.id)}>X</button>}
                       </div>
-                        <h3 style={{textTransform:"uppercase"}}>To remember </h3>
-                            <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
+                        <h3 style={{textTransform:"uppercase", paddingTop:"10px"}}>To remember </h3>
+                        <div className="keyInfo-display">
+                        <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
                             </p>
+                        </div>
                             <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline : ""}</p>
                         <h3>Activity Info</h3>
                         <ul>
@@ -94,7 +96,7 @@ const deleteEvent = async id => {
                         <div>
                             <button type="button" className="btn btn-warning" onClick={event => handleClick(e.id)}>Count on Me</button>
                         </div>}
-                        {userActivities.includes(e.id) && <div>
+                        {userActivities.includes(e.id) && <div style={{fontWeight:"bold", marginBottom:"14px"}}>
                             You're attending this event!
                         </div>}
                         <div className="accordion" id="accordionExample">
