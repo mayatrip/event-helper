@@ -100,7 +100,7 @@ const handleClick = (id) => {
                                 {(e.users.length > 0) && <ul>
                                   {e.users.map(u => (
                                       <li key={u.id}>
-                                          {u.username}, {u.id}
+                                          {u.username}
                                       </li>
                                     ))}
                                 </ul> 
