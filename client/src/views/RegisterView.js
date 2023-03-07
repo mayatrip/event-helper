@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function RegisterView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        props.setLoginErrorMsgCb();
+      }, []);
 
     const handleChange = (event) => {
         let { name, value } = event.target;
@@ -45,6 +49,7 @@ export default function RegisterView(props) {
             </label>
             <button type="submit">Submit</button>
         </form>
+        {props.loginErrorMsg && <h1>{props.loginErrorMsg}</h1>}
     </div>
   )
 }

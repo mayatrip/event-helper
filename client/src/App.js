@@ -33,6 +33,10 @@ function App() {
     }, 2000);
   }
 
+  const resetError = () => {
+    setLoginErrorMsg('');
+  }
+
   async function doLogin(username, password) {
     let uresponse = await Api.loginUser(username, password);
     if (uresponse.ok){
@@ -46,7 +50,8 @@ function App() {
   }
 
   async function doLogout(){
-    Local.removerUserInfo();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     navigate('/');
   }
@@ -58,7 +63,9 @@ function App() {
       setLoginErrorMsg('');
       navigate('/dashboard');
       handleVisible();
-    } else {
+    } else if (uresponse.status === 400){
+      setLoginErrorMsg('Username taken');
+      } else {
       setLoginErrorMsg('Registration failed');
   }
 }
@@ -111,8 +118,8 @@ function App() {
         {visibleAlert && <h1>Account created, please login</h1>}
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
-          <Route path="/login" element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(username, password) => doLogin(username, password)}/>} />
-          <Route path="/register" element={<RegisterView registerUserCb={(username, password) => registerUser(username, password)}/>} />
+          <Route path="/login" element={<LoginView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} doLoginCb={(username, password) => doLogin(username, password)}/>} />
+          <Route path="/register" element={<RegisterView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} registerUserCb={(username, password) => registerUser(username, password)}/>} />
           <Route path="/dashboard" element={
             <PrivateRoute>
               <DashboardView allKeyInfo={allKeyInfo} allEvents={allEvents} user={user} addVoteCb={(id, voteObj) => addVote(id, voteObj)}/>

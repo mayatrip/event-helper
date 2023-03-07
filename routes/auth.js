@@ -15,12 +15,18 @@ router.post('/register', async (req, res) => {
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     try {
-        let sql = `
+        let results = await db(`SELECT * FROM users WHERE username = '${username}'`);
+        if (results.data.length !== 0) {
+            //username taken
+            res.status(400).send( {error: 'Username taken' });
+        } else {
+            let sql = `
             INSERT INTO users (username, password)
             VALUES ('${username}', '${hashedPassword}')
         `;
         await db(sql);
         res.send({ message: 'Registration succeeded' });
+        }
     } catch(err){
         res.status(500).send({ error: err.message });
     }

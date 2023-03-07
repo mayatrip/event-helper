@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        props.setLoginErrorMsgCb();
+      }, []);
 
     const handleChange = (event) => {
         let { name, value } = event.target;
