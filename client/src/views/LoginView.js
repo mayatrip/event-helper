@@ -48,8 +48,8 @@ export default function LoginView(props) {
                 />
             </label>
             <button type="submit">Submit</button>
-            {props.loginErrorMsg && <h2>{props.loginErrorMsg}</h2>}
         </form>
+        {props.loginErrorMsg && <h2>{props.loginErrorMsg}</h2>}
     </div>
   )
 }
