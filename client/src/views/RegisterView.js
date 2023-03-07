@@ -40,7 +40,7 @@ export default function RegisterView(props) {
             </label>
             <label>Choose a Password:
                 <input
-                type = "text"
+                type = "password"
                 name = "passwordInput"
                 required
                 value = {password}

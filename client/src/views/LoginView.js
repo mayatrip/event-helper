@@ -40,7 +40,7 @@ export default function LoginView(props) {
             </label>
             <label>Password:
                 <input
-                type = "text"
+                type = "password"
                 name = "passwordInput"
                 required
                 value = {password}
