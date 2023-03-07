@@ -173,7 +173,7 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
     WHERE activities_id = ${id};
 
     INSERT INTO users_activities (userId, activitiesId)
-    VALUES (${changes.userId}, ${changes.activities_id})
+    VALUES (${changes.userId}, ${changes.id})
   `;
   try {
     await db(sql);
