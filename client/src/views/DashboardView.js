@@ -20,10 +20,8 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    if(props.user) {
       getUserEvents(props.user.id);
-    }
-  }, []);
+  }, [props.user.activities]);
 
   const getUserEvents = async id => {
     let uresponse = await Api.getOneUser(id);
