@@ -21,10 +21,48 @@
 
 nav {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 15px 0px;
-  gap: 10px;
   border-bottom: 2px solid #ffbc0d;
+}
+
+.left{
+  text-align: left;
+  flex:3;
+}
+
+.right {
+  text-align: right;
+  flex:1;
+}
+
+nav a {
+  text-decoration: none;
+  color: #4D5061;
+  text-transform: uppercase;
+  padding: 0px 10px
+}
+
+a:hover{
+    text-shadow: 0.5px 0.5px 1px;
+}
+
+.HomeView{
+  width: 70%;
+  margin: 0 auto;
+  text-transform: uppercase;
+}
+
+h1{
+  font-family: 'Lilita One', cursive;
+  letter-spacing: 0.1em;
+  font-size:48px;
+  padding:15px 0px;
+  color: #5C80BC
+}
+
+.HomeView img {
+  width: 100%;
 }
 
 .DashboardView{
@@ -40,8 +78,11 @@ nav {
   border: 2px solid black;
 }
 
-h2 {
+h3 {
   font-size: 20px;
+  font-family: 'Lilita One', cursive;
+  letter-spacing: 0.1em;
+  color: #5C80BC
 }
 
 p {
@@ -52,4 +93,22 @@ p {
 
 li {
   text-align: left;
+}
+
+.accordion{
+  padding-top:15px;
+}
+
+.accordion-button{
+  font-size: 16px;
+  font-family: 'Lilita One', cursive;
+  letter-spacing: 0.1em;
+  color: #5C80BC
+}
+
+h2{
+  font-size: 28px;
+  font-family: 'Lilita One', cursive;
+  letter-spacing: 0.1em;
+  color: #5C80BC
 }

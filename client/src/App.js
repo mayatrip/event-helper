@@ -10,6 +10,7 @@ import DashboardView from "./views/DashboardView";
 import LoginView from "./views/LoginView";
 import AddEventView from "./views/AddEventView";
 import RegisterView from "./views/RegisterView";
+import HomeView from "./views/HomeView";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());
@@ -101,23 +102,23 @@ function App() {
   return (
 
     <div className="App">
-      <header>
-        <h1>NUGGETS EVENT</h1>
-      </header>
-
       <nav>
-        <Link to="/">Home</Link> 
-        <Link to="/dashboard">All Events</Link>
-        <Link to="/add-event">Add Events</Link>
-        {user && <Link to="/" onClick={doLogout}>Logout</Link>}
-        {!user && <Link to="/login">Login</Link>}
-        {!user && <Link to="/register">Create an Account</Link>}
+        <div className="left">
+          <Link to="/">Home</Link> 
+          <Link to="/dashboard">All Events</Link>
+          <Link to="/add-event">Add Events</Link>
+        </div>
+        <div className="right">
+          {user && <Link to="/" onClick={doLogout}>Logout</Link>}
+          {!user && <Link to="/login">Login</Link>}
+          {!user && <Link to="/register">Create an Account</Link>}
+        </div>
       </nav>
 
       <div>
         {visibleAlert && <h1>Account created, please login</h1>}
         <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/" element={<HomeView />} />
           <Route path="/login" element={<LoginView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/register" element={<RegisterView setLoginErrorMsgCb={e => resetError()} loginErrorMsg={loginErrorMsg} registerUserCb={(username, password) => registerUser(username, password)}/>} />
           <Route path="/dashboard" element={

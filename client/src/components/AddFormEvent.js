@@ -51,20 +51,11 @@ function AddFormEvent(props) {
             <form onSubmit={handleSubmit}>
 
                 <div className="gridDiv">
-                    <h2>Main info</h2>
-                        <label className="col-sm" >
-                            Date
-                            <input 
-                            type= "text"
-                            name= "date"
-                            value={formData.date}
-                            onChange={handleChange}
-                            />
-                        </label>
-   
+                    <h2>Event Info</h2>
+
 
                     <label className="col-sm">
-                        Title
+                        Event Name:
                         <input 
                         type= "text"
                         name= "title"
@@ -73,8 +64,18 @@ function AddFormEvent(props) {
                         />
                     </label>
 
+                        <label className="col-sm" >
+                            Date:
+                            <input 
+                            type= "text"
+                            name= "date"
+                            value={formData.date}
+                            onChange={handleChange}
+                            />
+                        </label>
+
                     <label className="col-sm">
-                        Due date
+                        Reply Before:
                         <input 
                         type= "text"
                         name= "deadline"
@@ -85,11 +86,11 @@ function AddFormEvent(props) {
                 </div>
 
                 <div className="gridDiv">
-                    <h2> Activity A</h2>
+                    <h2> Activity One</h2>
 
 
                     <label >
-                        Name
+                        Name:
                         <input 
                         type= "text"
                         name= "activityNameOne"
@@ -99,7 +100,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label >
-                        Description
+                        Description:
                         <textarea
                         name= "descriptionOne"
                         value={formData.descriptionOne}
@@ -108,7 +109,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label >
-                        Price
+                        Price:
                         <input 
                         type= "number"
                         name= "priceOne"
@@ -118,7 +119,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label>
-                        Location
+                        Location:
                         <input 
                         type= "text"
                         name= "locationOne"
@@ -129,9 +130,9 @@ function AddFormEvent(props) {
                 </div>
                                                          
                 <div className="gridDiv">
-                    <h2> Activity B</h2>
+                    <h2> Activity Two</h2>
                     <label>
-                        Name
+                        Name:
                         <input 
                         type= "text"
                         name= "activityNameTwo"
@@ -141,7 +142,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label>
-                        Description
+                        Description:
                         <textarea
                         name= "descriptionTwo"
                         value={formData.descriptionTwo}
@@ -150,7 +151,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label>
-                        Price
+                        Price:
                         <input 
                         type= "number"
                         name= "priceTwo"
@@ -160,7 +161,7 @@ function AddFormEvent(props) {
                     </label>
 
                     <label>
-                        Location
+                        Location:
                         <input 
                         type= "text"
                         name= "locationTwo"

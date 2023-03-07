@@ -79,11 +79,11 @@ const deleteEvent = async id => {
                       <div className="delete-button-container">
                       {e.author_id === props.user.id && <button type="button" onClick={event => deleteEvent(e.id)}>X</button>}
                       </div>
-                        <h2>To remember </h2>
+                        <h3 style={{textTransform:"uppercase"}}>To remember </h3>
                             <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
                             </p>
                             <p>Answer before {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).deadline : ""}</p>
-                        <h2>Activity Info</h2>
+                        <h3>Activity Info</h3>
                         <ul>
                           <li>{e.name}</li>
                           <li>{e.description}</li>
@@ -92,18 +92,18 @@ const deleteEvent = async id => {
                         </ul>
                         {!userActivities.includes(e.id) &&
                         <div>
-                            <button type="button" onClick={event => handleClick(e.id)}>Count on Me</button>
+                            <button type="button" className="btn btn-warning" onClick={event => handleClick(e.id)}>Count on Me</button>
                         </div>}
                         {userActivities.includes(e.id) && <div>
                             You're attending this event!
                         </div>}
                         <div className="accordion" id="accordionExample">
                             <div className="accordion-item">
-                                <h2 className="accordion-header" id="headingTwo">
+                                <h3 className="accordion-header" id="headingTwo">
                                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     Who is coming?
                                 </button>
-                                </h2>
+                                </h3>
                                 <div id={"collapseTwo"} className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div className="accordion-body">
                                 {(e.users.length > 0) && <ul>
