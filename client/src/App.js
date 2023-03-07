@@ -10,7 +10,6 @@ import DashboardView from "./views/DashboardView";
 import LoginView from "./views/LoginView";
 import AddEventView from "./views/AddEventView";
 import RegisterView from "./views/RegisterView";
-import AddFormEvent from "./components/AddFormEvent";
 
 function App() {
   const [user, setUser] = useState(Local.getUser());
@@ -112,7 +111,7 @@ function App() {
         {visibleAlert && <h1>Account created, please login</h1>}
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
-          <Route path="/login" element={<LoginView doLoginCb={(username, password) => doLogin(username, password)}/>} />
+          <Route path="/login" element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(username, password) => doLogin(username, password)}/>} />
           <Route path="/register" element={<RegisterView registerUserCb={(username, password) => registerUser(username, password)}/>} />
           <Route path="/dashboard" element={
             <PrivateRoute>
