@@ -22,8 +22,6 @@ const INIT_STATE = {
 
 function AddFormEvent(props) {
     const [formData, setFormData] = useState(INIT_STATE);
-    const [activityOne, setActivityOne] = useState([]);
-    const [activityTwo, setActivityTwo] = useState([]);
 
     async function addEvent(eventObj){
         let uresponse = await Api.addEvent(eventObj);
@@ -34,41 +32,18 @@ function AddFormEvent(props) {
         }
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-        addEvent(activityOne);
-        if (activityTwo.activityName){
-            addEvent(activityTwo);
-        }
-        setFormData(INIT_STATE);
-    }
-
     function handleChange(event) {
         let {name, value} = event.target;
-        setFormData (data => ({...data, [name]: value}));
-        let actOne = {
-            date: formData.date,
-            title: formData.title,
-            deadline: formData.deadline,
-            activityName: formData.activityNameOne,
-            description: formData.descriptionOne,
-            price: formData.priceOne,
-            location: formData.locationOne,
-            user: props.user.id
-        };
-        let actTwo = {
-            date: formData.date,
-            title: formData.title,
-            deadline: formData.deadline,
-            activityName: formData.activityNameTwo,
-            description: formData.descriptionTwo,
-            price: formData.priceTwo,
-            location: formData.locationTwo,
-            user: props.user.id,
-            duplicate: true
-        };
-        setActivityOne(actOne);
-        setActivityTwo(actTwo);
+        let newFormData = {...formData};
+        newFormData[name] = value;
+        newFormData.user = props.user.id
+        setFormData (newFormData);
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        addEvent(formData);
+        setFormData(INIT_STATE);
     }
 
     return (
