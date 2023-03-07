@@ -68,6 +68,9 @@ const handleClick = (id) => {
             allEvents.map(e => (
                 <div key={e.id}>
                     <div className='subGrid'>
+                      <div className="delete-button-container">
+                      {e.author_id === props.user.id && <button>X</button>}
+                      </div>
                         <h2>To remember </h2>
                             <p>Save the date for {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).title : ""} on {(allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)) ? (allKeyInfo.find(i => i.keyInfo_id === e.keyInfo_id)).date : ""}
                             </p>
