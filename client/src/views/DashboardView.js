@@ -56,9 +56,9 @@ async function getEvents() {
 
 const handleClick = (id) => {
     console.log(id);
-    let selectedEvent = allEvents.find(i => i.activities_id === id);
+    let selectedEvent = allEvents.find(i => i.id === id);
     let newCount = selectedEvent.votes + 1;
-    let voteObj = {count: newCount, activities_id: id, userId: props.user.id};
+    let voteObj = {count: newCount, id: id, userId: props.user.id};
     getEvents();
     getUserEvents(props.user.id);
     props.addVoteCb(id, voteObj);
