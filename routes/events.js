@@ -98,7 +98,7 @@ function joinToJson(results) {
 }
 
 /* GET all event (activity) listings. */
-router.get('/', async function(req, res, next) {
+router.get('/', ensureLogin, async function(req, res, next) {
   try {
     let sql = `
     SELECT a.*, u.*, a.activities_id AS activitiesId, u.id AS userId
@@ -196,7 +196,7 @@ router.patch('/:id', ensureLogin, async function(req, res, next) {
   }
 });
 
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', ensureLogin, async function(req, res, next) {
   let id = req.params.id;
   try {
     let result = await db(`SELECT * FROM activities WHERE activities_id = ${id}`);
